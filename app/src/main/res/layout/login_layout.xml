@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <include
+        layout="@layout/toolbar"   /><!--toolbar距顶部56dp-->
+
+    <RelativeLayout android:id="@+id/RelativeLayout01"
+
+        android:layout_marginTop="76dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <EditText android:id="@+id/login_edit_account"
+             android:paddingLeft="56sp"
+            android:saveEnabled="true"
+            android:layout_width="326dp"
+            android:layout_height="36.67dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:hint="请输入手机号"
+            android:textSize="12.67dp"
+            android:textColor="#757575"
+            android:maxLength="11"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_alignParentTop="true"
+            android:inputType="number" />
+        <TextView
+            android:textColor="#ff3f3f3f"
+            android:gravity="center_vertical"
+            android:id="@+id/TextView01"
+            android:paddingLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15.0sp"
+            android:text="手机号:"
+            android:textSize="12.67dp"
+
+            android:layout_alignLeft="@+id/login_edit_account"
+            android:layout_alignTop="@+id/login_edit_account"
+            android:layout_alignBottom="@+id/login_edit_account" />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout android:id="@+id/RelativeLayout02"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/RelativeLayout01"
+        android:layout_marginTop="20dp">
+
+        <EditText android:id="@+id/login_edit_password"
+            android:paddingLeft="56sp"
+            android:saveEnabled="true"
+            android:layout_width="326dp"
+            android:layout_height="36.67dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:hint="请输入密码"
+            android:textSize="12.67dp"
+            android:textColor="#757575"
+            android:maxLength="11"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_alignParentTop="true"
+            android:inputType="textPassword" />
+        <TextView
+            android:textColor="#ff3f3f3f"
+            android:gravity="center_vertical"
+            android:id="@+id/TextView02"
+            android:paddingLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15.0sp"
+            android:text="密码:"
+            android:textSize="12.67dp"
+            android:layout_alignLeft="@+id/login_edit_password"
+            android:layout_alignTop="@+id/login_edit_password"
+            android:layout_alignBottom="@+id/login_edit_password" />
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:id="@+id/textView03"
+            android:text="忘记密码"
+            android:textSize="12.67dp"
+            android:textColor="#2EBC72"
+            android:paddingRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/login_edit_password" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="320dp"
+        android:layout_height="36.67dp"
+        android:text="登录"
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/login_login_Button"
+        android:background="@drawable/green_button"
+        android:layout_below="@+id/RelativeLayout02"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+
+
+
+
+
+
+</RelativeLayout>
