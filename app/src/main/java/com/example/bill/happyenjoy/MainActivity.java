@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends Activity {
 
     @Override
@@ -18,7 +19,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                startActivity(intent);//测试测试
             }
         });
 
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
-                startActivity(intent);
+                startActivity(intent);//
 
         };
     });
