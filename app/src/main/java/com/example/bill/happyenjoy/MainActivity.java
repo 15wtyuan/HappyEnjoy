@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);//测试测试fefwefw
+                startActivity(intent);//测试测试
             }
         });
 
