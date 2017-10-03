@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by TT on 2017/10/3.
@@ -33,4 +34,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
     }
+
+    public void showToase(String str){
+        Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();
+    }
+
 }

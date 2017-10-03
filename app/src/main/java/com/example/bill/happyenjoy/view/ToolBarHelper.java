@@ -15,6 +15,7 @@ public class ToolBarHelper {
     }
 
     public Toolbar getToolbar() {
+        mToolbar.setTitle("");
         return mToolbar;
     }
 

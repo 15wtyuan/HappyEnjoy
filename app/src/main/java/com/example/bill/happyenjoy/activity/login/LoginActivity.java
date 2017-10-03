@@ -28,11 +28,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
         toolbarHelper.setTitle("登录");
         toolbar = toolbarHelper.getToolbar();
-        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         Button login = (Button) findViewById(R.id.login_login_Button);
@@ -57,8 +57,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
 //设置组件的点击属性
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
