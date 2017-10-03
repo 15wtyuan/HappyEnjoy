@@ -18,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
         ActivityCollector.addActivity(this);
         Log.d("BaseActivity",getClass().getSimpleName());
     }
-
+//哈哈
     @Override
     protected void onDestroy() {
         super.onDestroy();
