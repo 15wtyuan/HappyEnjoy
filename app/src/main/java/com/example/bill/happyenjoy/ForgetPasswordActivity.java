@@ -21,7 +21,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forget_password_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
         toolbarHelper.setTitle("忘记密码");
         toolbar = toolbarHelper.getToolbar();

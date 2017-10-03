@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/toolbar"   /><!--toolbar距顶部56dp-->
+        layout="@layout/white_toolbar"   /><!--toolbar距顶部56dp-->
 
     <RelativeLayout android:id="@+id/RelativeLayout01"
         android:layout_marginTop="76dp"

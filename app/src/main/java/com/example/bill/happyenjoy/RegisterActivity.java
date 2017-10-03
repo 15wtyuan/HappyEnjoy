@@ -18,7 +18,7 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
         toolbarHelper.setTitle("注册账号");
         toolbar = toolbarHelper.getToolbar();

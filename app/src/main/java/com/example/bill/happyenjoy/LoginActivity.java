@@ -26,7 +26,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
         toolbarHelper.setTitle("登录");
         toolbar = toolbarHelper.getToolbar();

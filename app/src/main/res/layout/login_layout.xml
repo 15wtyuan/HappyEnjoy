@@ -6,7 +6,7 @@
 
 
     <include
-        layout="@layout/toolbar"   /><!--toolbar距顶部56dp-->
+        layout="@layout/white_toolbar"   /><!--toolbar距顶部56dp-->
 
     <RelativeLayout android:id="@+id/RelativeLayout01"
 
