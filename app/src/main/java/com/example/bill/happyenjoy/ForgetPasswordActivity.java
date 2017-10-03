@@ -1,10 +1,7 @@
 package com.example.bill.happyenjoy;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,14 +10,12 @@ import android.widget.Toast;
 
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 
-import static com.example.bill.happyenjoy.R.id.contentPanel;
 import static com.example.bill.happyenjoy.R.id.forget_ensure_button;
-import static com.example.bill.happyenjoy.R.id.forget_send_code;
 
 /**
  * Created by bill on 2017/9/24.
  */
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgetPasswordActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

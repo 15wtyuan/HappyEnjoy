@@ -1,15 +1,9 @@
 package com.example.bill.happyenjoy;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,20 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bill.happyenjoy.view.ToolBarHelper;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 /**
  * Created by bill on 2017/9/3.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int SHOW_RESPONSE=0;//用于更新操作
     public TextView responseText;
