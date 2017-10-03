@@ -6,3 +6,5 @@
 .DS_Store
 /build
 /captures
+libs/
+src/main/java/com/example/bill/happyenjoy/model/
