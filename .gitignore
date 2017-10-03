@@ -8,3 +8,6 @@
 /captures
 libs/
 src/main/java/com/example/bill/happyenjoy/model/
+/gradle.properties
+/.gradle
+/gradle
