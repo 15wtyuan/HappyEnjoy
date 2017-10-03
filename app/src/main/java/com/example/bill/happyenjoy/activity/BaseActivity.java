@@ -1,4 +1,4 @@
-package com.example.bill.happyenjoy;
+package com.example.bill.happyenjoy.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.example.bill.happyenjoy;
+package com.example.bill.happyenjoy.activity;
 
 import android.app.Activity;
 

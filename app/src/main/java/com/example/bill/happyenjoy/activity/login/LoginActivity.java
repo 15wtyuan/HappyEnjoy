@@ -1,4 +1,4 @@
-package com.example.bill.happyenjoy;
+package com.example.bill.happyenjoy.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 /**
  * Created by bill on 2017/9/3.
