@@ -6,11 +6,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
+import com.example.bill.happyenjoy.model.UserData;
+import com.example.bill.happyenjoy.model.UserLoginData;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 public class HomePageActivity extends BaseActivity {
 
@@ -38,6 +46,12 @@ public class HomePageActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.alert_item,menu);
+        return true;
+    }
+
     public class MyOnItemClickListener implements DrawerAdapter.OnItemClickListener {
 
         @Override
@@ -45,6 +59,14 @@ public class HomePageActivity extends BaseActivity {
             switch (drawerItemNormal.name) {
                 case "我的发布":
                     showToase("我的发布");
+                    List<UserData> userDatas = DataSupport.findAll(UserData.class);
+                    for (UserData userData:userDatas){
+                        Log.d("test",userData.toString());
+                    }
+                    List<UserLoginData> userLoginDatas = DataSupport.findAll(UserLoginData.class);
+                    for(UserLoginData userLoginData:userLoginDatas){
+                        Log.d("test",userLoginData.toString());
+                    }
                     break;
                 case "我的消息":
                     showToase("我的消息");
@@ -67,6 +89,8 @@ public class HomePageActivity extends BaseActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.alert_button:
+                showToase("新消息");
             default:
                 return super.onOptionsItemSelected(item);
         }

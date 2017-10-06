@@ -31,7 +31,8 @@
         android:id="@+id/regist_Button"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="320dp"
@@ -43,7 +44,8 @@
         android:id="@+id/login_Button"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="66.66dp" />
+        android:layout_marginBottom="66.66dp"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
