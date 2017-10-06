@@ -39,6 +39,9 @@
         <activity android:name=".activity.homePage.HomePageActivity">
 
         </activity>
+        <activity android:name=".activity.login.ChooseCollegeActivity">
+
+        </activity>
     </application>
 
 </manifest>
