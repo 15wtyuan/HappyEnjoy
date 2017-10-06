@@ -12,7 +12,7 @@ public class ToolBarHelper {
 
     public ToolBarHelper(Toolbar toolbar) {
         this.mToolbar = toolbar;
-    }
+    }//呵呵呵呵呵
 
     public Toolbar getToolbar() {
         mToolbar.setTitle("");
