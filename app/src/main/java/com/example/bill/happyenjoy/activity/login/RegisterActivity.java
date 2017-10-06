@@ -1,5 +1,6 @@
 package com.example.bill.happyenjoy.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,8 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"你点了确定",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this,ChooseCollegeActivity.class);
+                startActivity(intent);
             }
         });
 

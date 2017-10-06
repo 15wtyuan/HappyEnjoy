@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/white_toolbar"/><!--toolbar距顶部56dp-->
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/province_layout"
+        android:layout_width="320dp"
+        android:layout_height="36.67dp"
+        android:background="@drawable/choose_bg"
+        android:layout_marginTop="76dp"
+        >
+        <TextView
+            android:id="@+id/province_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="省份"
+            android:textSize="12.67dp"
+            android:textColor="#212121"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="6dp" />
+
+        <ImageButton
+            android:id="@+id/choose_province_button"
+            android:layout_width="18.67dp"
+            android:layout_height="18.67dp"
+            android:background="@drawable/triangle"
+
+            android:layout_marginStart="85.33dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/province_text" />
+
+        <TextView
+            android:id="@+id/choose_province_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择"
+            android:textSize="12.67dp"
+            android:textColor="#757575"
+            android:clickable="true"
+            android:layout_alignTop="@+id/province_text"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/choose_province_button"
+            android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/city_layout"
+        android:layout_width="320dp"
+        android:layout_height="36.67dp"
+        android:background="@drawable/choose_bg"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/province_layout"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/city_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="城市"
+            android:textSize="12.67dp"
+            android:textColor="#212121"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="6dp" />
+
+        <ImageButton
+            android:id="@+id/choose_city_button"
+            android:layout_width="18.67dp"
+            android:layout_height="18.67dp"
+            android:background="@drawable/triangle"
+
+            android:layout_marginStart="85.33dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/city_text" />
+
+        <TextView
+            android:id="@+id/choose_city_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择"
+            android:textSize="12.67dp"
+            android:textColor="#757575"
+            android:clickable="true"
+            android:layout_alignTop="@+id/city_text"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/choose_city_button"
+            android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/college_layout"
+        android:layout_width="320dp"
+        android:layout_height="36.67dp"
+        android:background="@drawable/choose_bg"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/city_layout"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/college_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高校"
+            android:textSize="12.67dp"
+            android:textColor="#212121"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="6dp" />
+
+        <ImageButton
+            android:id="@+id/choose_college_button"
+            android:layout_width="18.67dp"
+            android:layout_height="18.67dp"
+            android:background="@drawable/triangle"
+
+            android:layout_marginStart="85.33dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/college_text" />
+
+        <TextView
+            android:id="@+id/choose_college_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择"
+            android:textSize="12.67dp"
+            android:textColor="#757575"
+            android:clickable="true"
+            android:layout_alignTop="@+id/college_text"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/choose_college_button"
+            android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="320dp"
+        android:layout_height="36.67dp"
+        android:text="确定"
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/choose_college_ensure_button"
+        android:background="@drawable/green_button"
+        android:layout_below="@+id/college_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+
+        />
+
+</RelativeLayout>
