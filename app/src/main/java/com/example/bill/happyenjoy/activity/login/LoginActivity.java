@@ -146,6 +146,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     Intent intent = new Intent(LoginActivity.this,HomePageActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     showToase("账号或密码错误！");
                 }

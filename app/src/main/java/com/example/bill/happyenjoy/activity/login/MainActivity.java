@@ -2,6 +2,7 @@ package com.example.bill.happyenjoy.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +21,8 @@ import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -37,6 +40,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         LitePal.getDatabase();
 
         register_button = (Button)findViewById(R.id.regist_Button);
@@ -56,8 +60,6 @@ public class MainActivity extends BaseActivity {
         if (userLoginData.getPassword() == null){
             setButton();
         }else {
-            Intent intent = new Intent(MainActivity.this,HomePageActivity.class);
-            startActivity(intent);
             RequestBody requestBody = new FormBody.Builder()
                     .add("phoneNumber",userLoginData.getPhoneNumber())
                     .add("password",userLoginData.getPassword())
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity {
             HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/User/login/",requestBody,new okhttp3.Callback(){
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    Log.d("test","链接成功");
                     String responseData = response.body().string();
                     parseJSON(responseData);
                 }
@@ -82,6 +85,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
                 showToase("链接失败");
+                goHome();
             }
         });
     }
@@ -112,13 +116,25 @@ public class MainActivity extends BaseActivity {
                     userData.setWechat(userDataTemp.getWechat());
                     userData.save();
 
-                    Intent intent = new Intent(MainActivity.this,HomePageActivity.class);
-                    startActivity(intent);
+                    goHome();
                 }else {
                     setButton();
                 }
             }
         });
+    }
+
+    private void goHome(){
+        final Intent intent = new Intent(MainActivity.this,HomePageActivity.class);
+        //通过一个时间控制函数Timer，在实现一个活动与另一个活动的跳转。
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                startActivity(intent);
+                finish();
+
+            }
+        }, 1000);//这里停留时间为1000=1s。
     }
 
     private void setButton(){
