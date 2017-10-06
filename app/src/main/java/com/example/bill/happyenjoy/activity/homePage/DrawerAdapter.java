@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.model.UserData;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,7 +86,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
             });
         }else if(holder instanceof HeaderViewHolder){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.my_name.setText("肖航哥哥");
+            List<UserData> userDatas = DataSupport.findAll(UserData.class);
+            UserData userData = new UserData();
+            for (UserData temp:userDatas){
+                userData = temp;
+            }
+            headerViewHolder.my_name.setText(userData.getFlowerName());
             headerViewHolder.view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){

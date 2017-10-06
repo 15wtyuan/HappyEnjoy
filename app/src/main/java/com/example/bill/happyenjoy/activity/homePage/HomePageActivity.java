@@ -1,18 +1,19 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.ActivityCollector;
 import com.example.bill.happyenjoy.activity.BaseActivity;
-import com.example.bill.happyenjoy.model.UserData;
+import com.example.bill.happyenjoy.activity.login.MainActivity;
 import com.example.bill.happyenjoy.model.UserLoginData;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 
@@ -59,14 +60,6 @@ public class HomePageActivity extends BaseActivity {
             switch (drawerItemNormal.name) {
                 case "我的发布":
                     showToase("我的发布");
-                    List<UserData> userDatas = DataSupport.findAll(UserData.class);
-                    for (UserData userData:userDatas){
-                        Log.d("test",userData.toString());
-                    }
-                    List<UserLoginData> userLoginDatas = DataSupport.findAll(UserLoginData.class);
-                    for(UserLoginData userLoginData:userLoginDatas){
-                        Log.d("test",userLoginData.toString());
-                    }
                     break;
                 case "我的消息":
                     showToase("我的消息");
@@ -76,6 +69,17 @@ public class HomePageActivity extends BaseActivity {
                     break;
                 case "设置":
                     showToase("设置");
+                    List<UserLoginData> userLoginDatas = DataSupport.findAll(UserLoginData.class);
+                    UserLoginData userLoginData = new UserLoginData();
+                    for(UserLoginData temp:userLoginDatas){
+                        userLoginData = temp;
+                    }
+                    userLoginData.setPassword("0");
+                    userLoginData.setPhoneNumber("0");
+                    userLoginData.save();
+                    ActivityCollector.finishAll();
+                    Intent intent = new Intent(HomePageActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
             }
             mDrawerLayout.closeDrawer(GravityCompat.START);
