@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DarkAnimation">
+        <item name="android:windowEnterAnimation">@anim/dark_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/dark_fade_out</item>
+    </style>
+
+    <style name="MyDarkStyle">
+        <item name="android:windowEnterAnimation">@anim/my_dark_in</item>
+        <item name="android:windowExitAnimation">@anim/my_dark_out</item>
+    </style>
+
 </resources>
