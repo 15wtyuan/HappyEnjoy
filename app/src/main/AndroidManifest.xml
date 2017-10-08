@@ -46,6 +46,9 @@
         <activity android:name=".activity.login.ChooseCollegeActivity">
 
         </activity>
+        <activity android:name=".activity.publish.EditActivity">
+
+        </activity>
     </application>
 
 </manifest>

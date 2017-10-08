@@ -1,5 +1,6 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +26,7 @@ import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.ActivityCollector;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.login.MainActivity;
+import com.example.bill.happyenjoy.activity.publish.EditActivity;
 import com.example.bill.happyenjoy.bakerj.backgroundblurpopupwindow.BackgroundBlurPopupWindow;
 import com.example.bill.happyenjoy.model.UserLoginData;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
@@ -186,7 +188,9 @@ public class HomePageActivity extends BaseActivity {
         public void itemClick(DrawerAdapter.DrawerItemNormal drawerItemNormal) {
             switch (drawerItemNormal.name) {
                 case "我的发布":
-                    showToase("我的发布");
+                    Intent intent2 = new Intent(HomePageActivity.this,EditActivity.class);
+                    startActivity(intent2);
+
                     break;
                 case "我的消息":
                     showToase("我的消息");
