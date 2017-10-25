@@ -71,65 +71,27 @@
         android:scrollbars="none">
 
 
-        <LinearLayout
-            android:id="@+id/add_photo_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="84dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            android:background="#ffffff"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="840dp"
+            android:layout_height="103dp"
+            >
 
-            <ImageButton
-                android:id="@+id/add_photo_button"
-                android:layout_width="84dp"
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="840dp"
                 android:layout_height="84dp"
-                android:background="@drawable/add_photo" />
-
-            <ImageView
-                android:id="@+id/photo1"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
-
-            <ImageView
-                android:id="@+id/photo2"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
-
-            <ImageView
-                android:id="@+id/photo3"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
-
-            <ImageView
-                android:id="@+id/photo4"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
-
-            <ImageView
-                android:id="@+id/photo5"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
-
-            <ImageView
-                android:id="@+id/photo6"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/empty_photo" />
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:numColumns="10"
+                android:columnWidth="90dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center" >
 
 
-        </LinearLayout>
+            </GridView>
+        </RelativeLayout>
 
     </HorizontalScrollView>
 
