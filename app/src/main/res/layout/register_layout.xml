@@ -21,16 +21,15 @@
             android:layout_width="326dp"
             android:layout_height="36.67dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
             android:hint="请输入手机号"
             android:textSize="12.67dp"
             android:textColor="#757575"
             android:maxLength="11"
             android:background="@android:drawable/editbox_background_normal"
+            android:inputType="number"
             android:layout_alignParentTop="true"
-            android:inputType="number" />
+            android:layout_alignParentStart="true" />
         <TextView
             android:textColor="#ff3f3f3f"
             android:gravity="center_vertical"
