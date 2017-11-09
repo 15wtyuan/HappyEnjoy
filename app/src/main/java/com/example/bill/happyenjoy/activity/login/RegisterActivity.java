@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
+import com.example.bill.happyenjoy.model.CheckNumberJson;
+import com.example.bill.happyenjoy.model.RegisterResponseJson;
 import com.example.bill.happyenjoy.model.UserDataJson;
 import com.example.bill.happyenjoy.networkTools.HttpUtil;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
@@ -31,13 +33,13 @@ import okhttp3.Response;
 
 /**
  * Created by bill on 2017/9/24.
+ * Created by bill on 2017/9/24.
  */
 public class RegisterActivity extends BaseActivity {
     private EditText phoneNumber_edit;
     private EditText checkNumber_edit;
     private String phoneNumber;
-    private String checkNumber;
-    private String finalPassword;
+
     private String firstPassword;
     private String secondPassword;
     int same = 0;//信号变量，两个密码是否相等
@@ -67,12 +69,18 @@ public class RegisterActivity extends BaseActivity {
         ensure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //首先判断密码和确认密码的内容对不对
-                Toast.makeText(RegisterActivity.this, "确定", Toast.LENGTH_SHORT).show();
-                post_message_http();
-                //Toast.makeText(getApplicationContext(),"你点了确定",Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(RegisterActivity.this,ChooseCollegeActivity.class);
-                //startActivity(intent);
+                //首先判断密码和确认密码的内容对不对 firstPassword = first_password_edit.getText().toString();
+                secondPassword = second_password_edit.getText().toString();
+                firstPassword = first_password_edit.getText().toString();
+                if (firstPassword.equals(secondPassword)&&firstPassword!=null&&firstPassword!=""
+                        &&secondPassword!=null&&secondPassword!="") {
+                    same=1;
+                    post_message_http();
+                    same = 0;
+                }else{
+                    Toast.makeText(RegisterActivity.this, "验证码输入不一致或为空", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -81,28 +89,9 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 phoneNumber = phoneNumber_edit.getText().toString();
-
-
-               /*OkHttpClient client = new OkHttpClient();
-                RequestBody  body  = new FormBody.Builder()
-                        .add("phoneNumber",phoneNumber)
-                        .build();
-
-            Request request = new  Request.Builder()
-                    .url("http://139.199.202.23/School/public/index.php/index/User/send/")
-                    .post(body)
-                    .build();
-                try {
-                    Response response = client.newCall(request).execute();
-                    String result = response.body().string();
-                    Log.d("androixx.cn",result);
-                    response.body().close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-
                 Toast.makeText(getApplicationContext(),"你点了发送验证码"+phoneNumber,Toast.LENGTH_SHORT).show();
                 post_phoneNumber_http();
+
             }
         });
     }
@@ -140,61 +129,94 @@ public class RegisterActivity extends BaseActivity {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String str = response.body().string();
-                Log.i("wangshu", str);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "请求成功", Toast.LENGTH_SHORT).show();
-                    }
-                });
+               final String responseData = response.body().string();
+                parseCheckNumberJson(responseData);
+            }
+        });
+    };
+
+    //解析发送验证码的返回信息
+    private void parseCheckNumberJson( final String responseData){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                CheckNumberJson checkNumberJson = gson.fromJson(responseData,CheckNumberJson.class);
+                if(checkNumberJson.getMessage().equals("success")){
+                    Toast.makeText(RegisterActivity.this, "发送验证码成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "发送验证码失败", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
 
    private void post_message_http(){
+
        final EditText first_password_edit = (EditText)findViewById(R.id.register_edit_password);
        //first_password 定位到密码输入框
        final EditText second_password_edit = (EditText)findViewById(R.id.register_confirm_password);
        //定位确认密码框
        firstPassword = first_password_edit.getText().toString();
        secondPassword = second_password_edit.getText().toString();
-       finalPassword = firstPassword;
        //得到其他参数
        phoneNumber = phoneNumber_edit.getText().toString();
-       checkNumber = checkNumber_edit.getText().toString();
+       String checkNumber = checkNumber_edit.getText().toString();
 
-       //post
-       OkHttpClient client = new OkHttpClient();
-       RequestBody body = new FormBody.Builder()
-               .add("phoneNumber",phoneNumber)
-               .add("password",finalPassword)
-               .add("checkNumber",checkNumber)
-               .build();
-       Request request = new Request.Builder()
-               .url("http://139.199.202.23/School/public/index.php/index/User/register/")
-               .post(body)
-               .build();
-       Call call = client.newCall(request);
-       call.enqueue(new Callback() {
+       
+       if (same==1) {
+           //post
+           String finalPassword =firstPassword;
+           OkHttpClient client = new OkHttpClient();
+           RequestBody body = new FormBody.Builder()
+                   .add("phoneNumber", phoneNumber)
+                   .add("password", finalPassword)
+                   .add("checkNumber", checkNumber)
+                   .build();
+           Request request = new Request.Builder()
+                   .url("http://139.199.202.23/School/public/index.php/index/User/register/")
+                   .post(body)
+                   .build();
+           Call call = client.newCall(request);
+           call.enqueue(new Callback() {
+               @Override
+               public void onFailure(Call call, IOException e) {
+               }
+
+               @Override
+               public void onResponse(Call call, Response response) throws IOException {
+                   final String responseData = response.body().string();
+                   parseRegisterResponseJson(responseData);
+               }
+           });
+       }else {
+           Toast.makeText(this, "密码输入有误", Toast.LENGTH_SHORT).show();
+       }
+
+   }
+
+   private void parseRegisterResponseJson( final String responseData){
+       runOnUiThread(new Runnable() {
            @Override
-           public void onFailure(Call call, IOException e) {
-           }
-           @Override
-           public void onResponse(Call call, Response response) throws IOException {
-               String str = response.body().string();
-               Log.i("wangshu", str);
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                       Toast.makeText(getApplicationContext(), "请求成功", Toast.LENGTH_SHORT).show();
-                   }
-               });
+           public void run() {
+               Gson gson =  new GsonBuilder().serializeNulls().create();
+               RegisterResponseJson registerResponseJson = gson.fromJson(responseData,RegisterResponseJson.class);
+               if (registerResponseJson.getMessage().equals("success")){
+                   Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(RegisterActivity.this,ChooseCollegeActivity.class);
+                   startActivity(intent);
+               }else if(registerResponseJson.getCode()==301){
+                   Toast.makeText(RegisterActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+               }else if(registerResponseJson.getCode()==303){
+                   Toast.makeText(RegisterActivity.this, "您已注册过，请直接登录", Toast.LENGTH_SHORT).show();
+               }else if(registerResponseJson.getCode()==401){
+                   Toast.makeText(RegisterActivity.this, "当前手机还没有发送过验证码", Toast.LENGTH_SHORT).show();
+               }else{
+                   Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+               }
            }
        });
    }
 
 }
-
-
