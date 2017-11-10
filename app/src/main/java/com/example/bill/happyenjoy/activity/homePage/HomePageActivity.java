@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -84,6 +85,7 @@ public class HomePageActivity extends BaseActivity {
         uid = userData.getUid();//获取用户id
         i = 0;
         addIssueDate();
+        showToase(Integer.toString(uid));
 
         springView = (SpringView) findViewById(R.id.springview);
         springView.setType(SpringView.Type.FOLLOW);
@@ -185,6 +187,7 @@ public class HomePageActivity extends BaseActivity {
         Gson gson = new GsonBuilder().serializeNulls().create();
         IssueDateJson issueDateJson = gson.fromJson(responseData, IssueDateJson.class);
         if (issueDateJson.getMessage().equals("success")){
+            Log.d("test","success");
             issueDates.addAll(issueDateJson.getData().getData());
             i = issueDateJson.getData().getI();
         }
