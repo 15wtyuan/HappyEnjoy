@@ -5,6 +5,7 @@ package com.example.bill.happyenjoy.activity.login;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,7 @@ public class ChooseCollegeActivity extends AppCompatActivity
     private ImageButton chooseProvince;
     private ImageButton chooseCity;
     private ImageButton chooseCollege;
+    private Button ensure_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +58,16 @@ public class ChooseCollegeActivity extends AppCompatActivity
         toolbar = toolbarHelper.getToolbar();
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        //给确定按钮添加点击事件
+        ensure_button = (Button)findViewById(R.id.choose_college_ensure_button);
+        ensure_button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChooseCollegeActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         provinceText = (TextView) findViewById(R.id.choose_province_text);
