@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -72,20 +71,19 @@ public class HomePageActivity extends BaseActivity {
 
     private SpringView springView;
 
+    private IssueAdapter issueAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        List<UserData> userDatas = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
-        UserData userData = new UserData();
-        for (UserData temp:userDatas){
-            userData = temp;
-        }
-        uid = userData.getUid();//获取用户id
-        i = 0;
-        addIssueDate();
-        showToase(Integer.toString(uid));
+        RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
+        LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
+        issueAdapter = new IssueAdapter(issueDates);
+        issueList.setLayoutManager(layoutManagerIssue);
+        issueList.setAdapter(issueAdapter);
+        initIssueDate();
 
         springView = (SpringView) findViewById(R.id.springview);
         springView.setType(SpringView.Type.FOLLOW);
@@ -96,6 +94,7 @@ public class HomePageActivity extends BaseActivity {
                     @Override
                     public void run() {
                         springView.onFinishFreshAndLoad();
+                        initIssueDate();
                     }
                 }, 1000);
             }
@@ -106,6 +105,7 @@ public class HomePageActivity extends BaseActivity {
                     @Override
                     public void run() {
                         springView.onFinishFreshAndLoad();
+                        addIssueDate();
                     }
                 }, 1000);
             }
@@ -132,12 +132,6 @@ public class HomePageActivity extends BaseActivity {
         adapter.setOnItemClickListener(new MyOnItemClickListener());
         recyclerView.setAdapter(adapter);
 
-        RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
-        LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
-        issueList.setLayoutManager(layoutManagerIssue);
-        IssueAdapter issueAdapter = new IssueAdapter(issueDates);
-        issueList.setAdapter(issueAdapter);
-
         ImageButton searchViewButton = (ImageButton)findViewById(R.id.searchview_button);//搜索按钮
         searchViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +154,18 @@ public class HomePageActivity extends BaseActivity {
         mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 
+    }
+
+    private void initIssueDate(){
+        issueDates.clear();
+        List<UserData> userDatas = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+        UserData userData = new UserData();
+        for (UserData temp:userDatas){
+            userData = temp;
+        }
+        uid = userData.getUid();//获取用户id
+        i = 0;
+        addIssueDate();
     }
 
     private void addIssueDate(){//往issue添加数据
@@ -187,10 +193,16 @@ public class HomePageActivity extends BaseActivity {
         Gson gson = new GsonBuilder().serializeNulls().create();
         IssueDateJson issueDateJson = gson.fromJson(responseData, IssueDateJson.class);
         if (issueDateJson.getMessage().equals("success")){
-            Log.d("test","success");
             issueDates.addAll(issueDateJson.getData().getData());
             i = issueDateJson.getData().getI();
         }
+        //Log.d("test",Integer.toString(issueDates.size()));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                issueAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
 

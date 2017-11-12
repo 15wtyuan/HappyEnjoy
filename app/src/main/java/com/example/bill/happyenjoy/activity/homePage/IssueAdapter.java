@@ -38,7 +38,6 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         this.issueDates = issueDates;
     }
 
-
     static class ViewHolder extends RecyclerView.ViewHolder{
         CircleImageView touxiang;
         TextView user_name;
@@ -89,8 +88,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.biaoti.setText(issueDate.getTitle());
         holder.neirong.setText(issueDate.getBrief());
         holder.price.setText(issueDate.getPrice());
-        //holder.zan_num.setText(issueDate.getZan());
-        //holder.pinlun_num.setText(issueDate.getPingLun());
+        holder.zan_num.setText(Integer.toString(issueDate.getZan()));
+        holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
         holder.kind_name.setText(issueDate.getLabel());
         holder.time.setText(issueDate.getIssueTime());
     }
