@@ -1,5 +1,6 @@
 package com.example.bill.happyenjoy.activity.publish;
 
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -56,8 +57,11 @@ public class EditActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_layout);
+
+        //解决软键盘挡住输入框的问题
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
                 SOFT_INPUT_ADJUST_PAN);
+
         //锁定屏幕
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//锁定屏幕为竖直方向
         //获取控件对象
@@ -156,8 +160,9 @@ public class EditActivity extends BaseActivity {
         super.onResume();
         if(!TextUtils.isEmpty(pathImage)){
             Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+            Bitmap smallBmp = setScaleBitmap(addbmp,6);
             HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("itemImage", addbmp);
+            map.put("itemImage", smallBmp);
             imageItem.add(map);
             simpleAdapter = new SimpleAdapter(this,
                     imageItem, R.layout.griditem_addpic,
@@ -180,6 +185,33 @@ public class EditActivity extends BaseActivity {
             //刷新后释放防止手机休眠后自动添加
             pathImage = null;
         }
+    }
+
+    //将图片缩小的函数
+    private Bitmap setScaleBitmap(Bitmap photo,int SCALE) {
+        if (photo != null) {
+            //为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
+            //这里缩小了1/2,但图片过大时仍然会出现加载不了,但系统中一个BITMAP最大是在10M左右,我们可以根据BITMAP的大小
+            //根据当前的比例缩小,即如果当前是15M,那如果定缩小后是6M,那么SCALE= 15/6
+            Bitmap smallBitmap = zoomBitmap(photo, photo.getWidth() / SCALE,
+                    photo.getHeight() / SCALE);
+            //释放原始图片占用的内存，防止out of memory异常发生
+            photo.recycle();
+            return smallBitmap;
+        }
+        return null;
+    }
+
+    //利用矩阵压缩图片，不会造成内存溢出
+    public Bitmap zoomBitmap(Bitmap bitmap, int width, int height) {
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scaleWidth = ((float) width / w);
+        float scaleHeight = ((float) height / h);
+        matrix.postScale(scaleWidth, scaleHeight);// 利用矩阵进行缩放不会造成内存溢出
+        Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+        return newbmp;
     }
 
     protected void dialog(final int position) {
