@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -80,7 +81,7 @@ public class HomePageActivity extends BaseActivity {
 
         RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
-        issueAdapter = new IssueAdapter(issueDates);
+        issueAdapter = new IssueAdapter(issueDates,this);
         issueList.setLayoutManager(layoutManagerIssue);
         issueList.setAdapter(issueAdapter);
         initIssueDate();
@@ -187,7 +188,14 @@ public class HomePageActivity extends BaseActivity {
         });
     }
 
-    private void linkFailure(){}
+    private void linkFailure(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showToase("链接失败");
+            }
+        });
+    }
 
     private void parseIssueJSON(final String responseData){//处理获取的json
         Gson gson = new GsonBuilder().serializeNulls().create();
@@ -196,7 +204,7 @@ public class HomePageActivity extends BaseActivity {
             issueDates.addAll(issueDateJson.getData().getData());
             i = issueDateJson.getData().getI();
         }
-        //Log.d("test",Integer.toString(issueDates.size()));
+        Log.d("test",Integer.toString(issueDates.size()));
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -342,6 +350,5 @@ public class HomePageActivity extends BaseActivity {
         }
         return true;
     }
-
 
 }

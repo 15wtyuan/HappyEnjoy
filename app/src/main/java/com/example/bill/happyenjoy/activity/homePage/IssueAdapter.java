@@ -1,5 +1,7 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,24 +23,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
 
-    private static final int TYPE_PINCHE = 1;
-    private static final int TYPE_PAOTUI = 2;
-    private static final int TYPE_XUNWU = 3;
-    private static final int TYPE_QITA = 4;
-    private static final int TYPE_YINGYU = 5;
-    private static final int TYPE_SHEKE = 6;
-    private static final int TYPE_SHUMA = 7;
-    private static final int TYPE_JUJIA = 8;
-    private static final int TYPE_TUSHU = 9;
-    private static final int TYPE_XIANZHI_QITA = 10;
+    private static final int TYPE_HAVETUPIAN = 1;
+    private static final int TYPE_NORMAL = 2;
 
     private List<IssueDate> issueDates = new ArrayList<>();
+    private AppCompatActivity activity;
 
-    public IssueAdapter(List<IssueDate> issueDates){
+    public IssueAdapter(List<IssueDate> issueDates,AppCompatActivity activity){
         this.issueDates = issueDates;
+        this.activity = activity;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         CircleImageView touxiang;
         TextView user_name;
         TextView time;
@@ -67,19 +63,45 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
     }
 
+    public class NormalViewHolder extends ViewHolder{
+
+        public NormalViewHolder(View view){
+            super(view);
+        }
+    }
+
+    public class TupianViewHolder extends ViewHolder{
+
+        RecyclerView tupian;
+        public TupianViewHolder(View view){
+            super(view);
+            tupian = view.findViewById(R.id.tupian);
+        }
+    }
+
     @Override
     public int getItemViewType(int position) {
         IssueDate issueDate = issueDates.get(position);
-
-        return super.getItemViewType(position);
+        if (issueDate.getPicture1().equals("")||issueDate.getPicture1()==null){
+            return TYPE_NORMAL;
+        }else {
+            return TYPE_HAVETUPIAN;
+        }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.issue,parent,false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        ViewHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        switch (viewType) {
+            case TYPE_HAVETUPIAN:
+                viewHolder = new TupianViewHolder(inflater.inflate(R.layout.issue_have_tupian, parent, false));
+                break;
+            case TYPE_NORMAL:
+                viewHolder = new NormalViewHolder(inflater.inflate(R.layout.issue, parent, false));
+                break;
+        }
+        return viewHolder;
     }
 
     @Override
@@ -92,6 +114,43 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
         holder.kind_name.setText(issueDate.getLabel());
         holder.time.setText(issueDate.getIssueTime());
+
+        if(holder instanceof TupianViewHolder){
+            List<String> tupianURLs = new ArrayList<>();
+            if (!issueDate.getPicture1().equals("")){
+                tupianURLs.add(issueDate.getPicture1());
+            }
+            if (!issueDate.getPicture2().equals("")){
+                tupianURLs.add(issueDate.getPicture2());
+            }
+            if (!issueDate.getPicture3().equals("")){
+                tupianURLs.add(issueDate.getPicture3());
+            }
+            if (!issueDate.getPicture4().equals("")){
+                tupianURLs.add(issueDate.getPicture4());
+            }
+            if (!issueDate.getPicture5().equals("")){
+                tupianURLs.add(issueDate.getPicture5());
+            }
+            if (!issueDate.getPicture6().equals("")){
+                tupianURLs.add(issueDate.getPicture6());
+            }
+            if (!issueDate.getPicture7().equals("")){
+                tupianURLs.add(issueDate.getPicture7());
+            }
+            if (!issueDate.getPicture8().equals("")){
+                tupianURLs.add(issueDate.getPicture8());
+            }
+            if (!issueDate.getPicture9().equals("")){
+                tupianURLs.add(issueDate.getPicture9());
+            }
+            TupianViewHolder tupianViewHolder = (TupianViewHolder)holder;
+            LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            tupianViewHolder.tupian.setLayoutManager(layoutManager);
+            ImageAdapter imageAdapter = new ImageAdapter(tupianURLs,activity);
+            tupianViewHolder.tupian.setAdapter(imageAdapter);
+        }
     }
 
     @Override
