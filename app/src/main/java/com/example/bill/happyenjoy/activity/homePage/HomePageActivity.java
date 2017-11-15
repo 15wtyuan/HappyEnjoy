@@ -129,7 +129,7 @@ public class HomePageActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.my_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DrawerAdapter adapter = new DrawerAdapter();
+        DrawerAdapter adapter = new DrawerAdapter(this);
         adapter.setOnItemClickListener(new MyOnItemClickListener());
         recyclerView.setAdapter(adapter);
 

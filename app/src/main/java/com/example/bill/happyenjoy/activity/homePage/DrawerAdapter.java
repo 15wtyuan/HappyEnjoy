@@ -1,7 +1,7 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.BaseActivity;
+import com.example.bill.happyenjoy.activity.publish.EditActivity;
 import com.example.bill.happyenjoy.model.UserData;
 
 import org.litepal.crud.DataSupport;
@@ -25,6 +27,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     private static final int TYPE_NORMAL = 1;
     private static final int TYPE_HEADER = 2;
+    private BaseActivity activity;
+
+    public DrawerAdapter(BaseActivity activity){
+        this.activity =activity;
+    }
 
     private List<DrawerItem> dataList = Arrays.asList(
             new DrawerItemHeader(),
@@ -95,7 +102,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
             headerViewHolder.view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Log.d("test","点击了我的");
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(activity,EditActivity.class);
+                            activity.startActivity(intent);
+                        }
+                    });
                 }
             });
         }
