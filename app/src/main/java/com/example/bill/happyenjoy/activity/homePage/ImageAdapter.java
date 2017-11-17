@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bill.happyenjoy.R;
 
 import java.util.ArrayList;
@@ -47,8 +48,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String tupianURL = tupianURLs.get(position);
-        Glide.with(activity)
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.jiazai);
+                //.error(R.drawable.error)
+        Glide
+                .with(activity)
                 .load(tupianURL)
+                .apply(options)
                 .into(holder.tupianItem);
     }
 

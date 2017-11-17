@@ -21,3 +21,9 @@ native <methods>;
 }
 -dontwarn android.support.v8.renderscript.**
 -keep class android.support.v8.renderscript.** { *; }
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}

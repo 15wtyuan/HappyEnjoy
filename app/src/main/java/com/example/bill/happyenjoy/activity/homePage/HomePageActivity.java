@@ -154,7 +154,6 @@ public class HomePageActivity extends BaseActivity {
         mPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-
     }
 
     private void initIssueDate(){
