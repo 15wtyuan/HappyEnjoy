@@ -3,6 +3,7 @@ package com.example.bill.happyenjoy.activity.homePage;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.bill.happyenjoy.model.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -108,6 +110,13 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
         return viewHolder;
     }
+    public static String TimeStamp2Date(String timestampString, String formats) {
+        if (TextUtils.isEmpty(formats))
+            formats = "yyyy-MM-dd HH:mm:ss";
+        Long timestamp = Long.parseLong(timestampString) * 1000;
+        String date = new java.text.SimpleDateFormat(formats, Locale.CHINA).format(new java.util.Date(timestamp));
+        return date;
+    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -119,7 +128,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.zan_num.setText(Integer.toString(issueDate.getZan()));
         holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
         holder.kind_name.setText(issueDate.getLabel());
-        holder.time.setText(issueDate.getIssueTime());
+        holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.jiazai);
