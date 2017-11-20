@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.model.IssueDate;
+import com.example.bill.happyenjoy.model.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,12 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
 
     private List<IssueDate> issueDates = new ArrayList<>();
     private AppCompatActivity activity;
+    private List<UserData> userDatas = new ArrayList<>();
 
-    public IssueAdapter(List<IssueDate> issueDates,AppCompatActivity activity){
+    public IssueAdapter(List<IssueDate> issueDates,List<UserData> userDatas,AppCompatActivity activity){
         this.issueDates = issueDates;
         this.activity = activity;
+        this.userDatas = userDatas;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -107,6 +112,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         IssueDate issueDate = issueDates.get(position);
+        UserData userData = userDatas.get(position);
         holder.biaoti.setText(issueDate.getTitle());
         holder.neirong.setText(issueDate.getBrief());
         holder.price.setText(issueDate.getPrice());
@@ -114,6 +120,16 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
         holder.kind_name.setText(issueDate.getLabel());
         holder.time.setText(issueDate.getIssueTime());
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.jiazai);
+        //.error(R.drawable.error)
+        Glide
+                .with(activity)
+                .load(userData.getImage())
+                .apply(options)
+                .into(holder.touxiang);
+        holder.user_name.setText(userData.getFlowerName());
 
         if(holder instanceof TupianViewHolder){
             List<String> tupianURLs = new ArrayList<>();

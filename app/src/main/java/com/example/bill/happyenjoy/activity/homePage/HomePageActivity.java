@@ -69,6 +69,7 @@ public class HomePageActivity extends BaseActivity {
     private int uid;
     private int i;//提取issue 用；api有要求
     private List<IssueDate> issueDates = new ArrayList<>();
+    private List<UserData> userDatas = new ArrayList<>();
 
     private SpringView springView;
 
@@ -81,7 +82,7 @@ public class HomePageActivity extends BaseActivity {
 
         RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
-        issueAdapter = new IssueAdapter(issueDates,this);
+        issueAdapter = new IssueAdapter(issueDates,userDatas,this);
         issueList.setLayoutManager(layoutManagerIssue);
         issueList.setAdapter(issueAdapter);
         initIssueDate();
@@ -201,6 +202,7 @@ public class HomePageActivity extends BaseActivity {
         IssueDateJson issueDateJson = gson.fromJson(responseData, IssueDateJson.class);
         if (issueDateJson.getMessage().equals("success")){
             issueDates.addAll(issueDateJson.getData().getData());
+            userDatas.addAll(issueDateJson.getData().getUser());
             i = issueDateJson.getData().getI();
         }
         Log.d("test",Integer.toString(issueDates.size()));
@@ -236,6 +238,7 @@ public class HomePageActivity extends BaseActivity {
             searchMune.setVisibility(View.VISIBLE);
             return false;
         }else {
+            ActivityCollector.finishAll();
             return super.onKeyDown(keyCode, event);
         }
     }
