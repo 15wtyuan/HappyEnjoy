@@ -269,6 +269,11 @@ public class HomePageActivity extends BaseActivity {
         bmb.setHighlightedColor(getResources().getColor(R.color.orange));
         bmb.setDotRadius(0);
         bmb.setUse3DTransformAnimation(true);
+        bmb.setShadowEffect(true);
+        bmb.setShadowColor(Color.parseColor("#55000000"));
+        bmb.setShadowOffsetX(-4);
+        bmb.setShadowOffsetY(4);
+        bmb.setShadowRadius(4);
     }
 
     private int addImageRes(int i){

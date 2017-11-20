@@ -127,7 +127,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.price.setText(issueDate.getPrice());
         holder.zan_num.setText(Integer.toString(issueDate.getZan()));
         holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
-        holder.kind_name.setText(issueDate.getLabel());
+        //holder.kind_name.setText(issueDate.getLabel());
         holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -139,6 +139,39 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                 .apply(options)
                 .into(holder.touxiang);
         holder.user_name.setText(userData.getFlowerName());
+
+        if (issueDate.getLabel().equals("11")){
+            holder.kind_name.setText("拼车");
+            holder.kind.setImageResource(R.mipmap.pinche);
+        }else if (issueDate.getLabel().equals("12")){
+            holder.kind_name.setText("跑腿");
+            holder.kind.setImageResource(R.mipmap.paotui);
+        }else if (issueDate.getLabel().equals("13")){
+            holder.kind_name.setText("寻物");
+            holder.kind.setImageResource(R.mipmap.xunwu);
+        }else if (issueDate.getLabel().equals("14")){
+            holder.kind_name.setText("其他");
+            holder.kind.setImageResource(R.mipmap.qita);
+        }else if (issueDate.getLabel().equals("21")){
+            holder.kind_name.setText("英语");
+            holder.kind.setImageResource(R.mipmap.yingyu);
+        }else if (issueDate.getLabel().equals("22")){
+            holder.kind_name.setText("社科");
+            holder.kind.setImageResource(R.mipmap.sheke);
+        }else if (issueDate.getLabel().equals("31")){
+            holder.kind_name.setText("数码");
+            holder.kind.setImageResource(R.mipmap.shuma);
+        }else if (issueDate.getLabel().equals("32")){
+            holder.kind_name.setText("居家");
+            holder.kind.setImageResource(R.mipmap.jujia);
+        }else if (issueDate.getLabel().equals("33")){
+            holder.kind_name.setText("图书");
+            holder.kind.setImageResource(R.mipmap.tushu);
+        }else if (issueDate.getLabel().equals("34")){
+            holder.kind_name.setText("其他");
+            holder.kind.setImageResource(R.mipmap.xianzhi_qita);
+        }
+
 
         if(holder instanceof TupianViewHolder){
             List<String> tupianURLs = new ArrayList<>();

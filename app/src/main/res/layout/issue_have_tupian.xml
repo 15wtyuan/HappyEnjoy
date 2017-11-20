@@ -47,7 +47,6 @@
             android:id="@+id/kind_name"
             android:layout_marginTop="23.67dp"
             android:layout_marginEnd="10dp"
-            android:text="跑腿"
             android:layout_alignParentEnd="true"
             android:textSize="9.33sp"
             android:textColor="#757575"/>
@@ -58,8 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/kind_name"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/kind_name"
-            android:background="@mipmap/paotui" />
+            android:layout_toStartOf="@+id/kind_name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,11 +70,12 @@
             android:textColor="#FC911F"/>
 
         <TextView
-            android:layout_width="340dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/biaoti"
             android:layout_alignLeft="@+id/touxiang"
             android:layout_marginTop="56.67dp"
+            android:layout_marginRight="10dp"
             android:text="这里是标题，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字"
             android:textSize="14sp"
             android:textColor="#212121"
@@ -84,11 +83,12 @@
             android:ellipsize="end"/>
 
         <TextView
-            android:layout_width="340dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/neirong"
             android:maxLines="2"
             android:layout_alignLeft="@+id/touxiang"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="80.67dp"
             android:text="这里是内容，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字"
             android:textSize="12.67sp"
@@ -138,9 +138,10 @@
             android:background="@mipmap/zan_no" />
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="340dp"
+            android:layout_width="wrap_content"
             android:layout_height="93.33dp"
             android:layout_alignLeft="@+id/touxiang"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/neirong"
             android:layout_marginTop="10dp"
             android:id="@+id/tupian"/>
