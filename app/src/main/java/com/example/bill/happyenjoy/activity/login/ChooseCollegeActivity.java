@@ -140,7 +140,7 @@ public class ChooseCollegeActivity extends AppCompatActivity
         View view2 = LayoutInflater.from(this).inflate(R.layout.city_list, null);
         // 根据此布局建立pop
         final PopupWindow city_popWindow = new PopupWindow(view2);
-        // <<<<<<<<<<<<<<<<<<<极其重要>>>>>>>>>>>>>>>>>>>>
+        // <<<<<<<<<<<<<<<<<<<极其重要>>>>>>>>>>>>>>>>>>>
         city_popWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         // city_popWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         city_popWindow.setWidth(with);
