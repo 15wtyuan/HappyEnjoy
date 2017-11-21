@@ -5,13 +5,13 @@ package com.example.bill.happyenjoy.model;
  */
 
 public class RegisterResponseJson extends BaseJson {
-    private int data;
+    private RegisterResponseData data;
 
-    private int getData(){
+    public RegisterResponseData getData() {
         return data;
     }
 
-    private void setData(int data){
-        this.data=data;
+    public void setData(RegisterResponseData data) {
+        this.data = data;
     }
 }

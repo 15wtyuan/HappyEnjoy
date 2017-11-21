@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.model.CheckNumberJson;
+import com.example.bill.happyenjoy.model.RegisterResponseData;
 import com.example.bill.happyenjoy.model.RegisterResponseJson;
 import com.example.bill.happyenjoy.model.UserDataJson;
 import com.example.bill.happyenjoy.networkTools.HttpUtil;
@@ -42,6 +43,8 @@ public class RegisterActivity extends BaseActivity {
 
     private String firstPassword;
     private String secondPassword;
+    private int user_id;//获取到的userId，要将其传递给下一个活动。
+
     int same = 0;//信号变量，两个密码是否相等
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +80,9 @@ public class RegisterActivity extends BaseActivity {
                     same=1;
                     post_message_http();
                     same = 0;
+
                 }else{
-                    Toast.makeText(RegisterActivity.this, "验证码输入不一致或为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "密码输入不一致或为空", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -196,6 +200,8 @@ public class RegisterActivity extends BaseActivity {
 
    }
 
+
+   //解析返回的信息
    private void parseRegisterResponseJson( final String responseData){
        runOnUiThread(new Runnable() {
            @Override
@@ -203,8 +209,19 @@ public class RegisterActivity extends BaseActivity {
                Gson gson =  new GsonBuilder().serializeNulls().create();
                RegisterResponseJson registerResponseJson = gson.fromJson(responseData,RegisterResponseJson.class);
                if (registerResponseJson.getMessage().equals("success")){
+                  // Log.d("信息",registerResponseJson.getMessage()+"   "+registerResponseJson.getCode());
+                   RegisterResponseData data = registerResponseJson.getData();//将返回的ia信息储存在其中
+                   user_id = data.getId();//这里得到的是int
+                   //Log.d("信息",String.valueOf(data.getId()));//这里将user_id转化为String
                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                    Intent intent = new Intent(RegisterActivity.this,ChooseCollegeActivity.class);
+
+                   //利用bundle传递信息
+                   Bundle bundle = new Bundle();
+                   bundle.putInt("user_id",user_id);
+                   intent.putExtras(bundle);
+                   //传递完成
+
                    startActivity(intent);
                }else if(registerResponseJson.getCode()==301){
                    Toast.makeText(RegisterActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
