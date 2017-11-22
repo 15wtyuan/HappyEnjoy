@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/white_toolbar"   /><!--toolbar距顶部56dp-->
+
+        <TextView
+            android:id="@+id/choose_sex_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:text="请选择性别"
+            android:textColor="#757575"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/male_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/choose_sex_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/male" />
+
+        <TextView
+            android:id="@+id/choose_sex_male_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/male_button"
+            android:layout_marginTop="15dp"
+            android:text="我是帅哥"
+            android:textColor="#212121"
+            android:textSize="13dp" />
+
+
+        <Button
+            android:id="@+id/female_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/choose_sex_male_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/female" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/female_button"
+            android:layout_marginTop="15dp"
+            android:text="我是美女"
+            android:textColor="#212121"
+            android:textSize="13dp" />
+
+
+
+</RelativeLayout>

@@ -1,10 +1,9 @@
-package com.example.bill.happyenjoy.activity.login;
+package com.example.bill.happyenjoy.Register;
 
 /**
  * Created by bill on 2017/10/6.
  */
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.login.MainActivity;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 
 import java.io.IOException;

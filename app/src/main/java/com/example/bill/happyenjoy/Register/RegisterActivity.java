@@ -1,14 +1,14 @@
-package com.example.bill.happyenjoy.activity.login;
+package com.example.bill.happyenjoy.Register;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bill.happyenjoy.R;
@@ -16,8 +16,6 @@ import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.model.CheckNumberJson;
 import com.example.bill.happyenjoy.model.RegisterResponseData;
 import com.example.bill.happyenjoy.model.RegisterResponseJson;
-import com.example.bill.happyenjoy.model.UserDataJson;
-import com.example.bill.happyenjoy.networkTools.HttpUtil;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +54,6 @@ public class RegisterActivity extends BaseActivity {
         toolbarHelper.setTitle("注册账号");
         toolbar = toolbarHelper.getToolbar();
         setSupportActionBar(toolbar);
-
         phoneNumber_edit = (EditText)findViewById(R.id.register_edit_account);
         final EditText first_password_edit = (EditText)findViewById(R.id.register_edit_password);
         //first_password 定位到密码输入框
@@ -214,7 +211,7 @@ public class RegisterActivity extends BaseActivity {
                    user_id = data.getId();//这里得到的是int
                    //Log.d("信息",String.valueOf(data.getId()));//这里将user_id转化为String
                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                   Intent intent = new Intent(RegisterActivity.this,ChooseCollegeActivity.class);
+                   Intent intent = new Intent(RegisterActivity.this,ChooseSexActivity.class);
 
                    //利用bundle传递信息
                    Bundle bundle = new Bundle();

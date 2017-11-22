@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.Register.RegisterActivity;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.homePage.HomePageActivity;
 import com.example.bill.happyenjoy.model.UserData;
