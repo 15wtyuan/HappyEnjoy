@@ -133,13 +133,20 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                 .centerCrop()
                 .placeholder(R.drawable.jiazai);
         //.error(R.drawable.error)
+
+        String temp = "";
+        try{
+            temp = userData.getImage();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         Glide
                 .with(activity)
-                .load(userData.getImage())
+                .load(temp)
                 .apply(options)
                 .into(holder.touxiang);
-        holder.user_name.setText(userData.getFlowerName());
 
+        holder.user_name.setText(userData.getFlowerName());
         if (issueDate.getLabel().equals("11")){
             holder.kind_name.setText("拼车");
             holder.kind.setImageResource(R.mipmap.pinche);

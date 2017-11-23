@@ -109,7 +109,7 @@ public class HomePageActivity extends BaseActivity {
                         springView.onFinishFreshAndLoad();
                         addIssueDate();
                     }
-                }, 1000);
+                }, 2000);
             }
         });
         springView.setHeader(new DefaultHeader(this));

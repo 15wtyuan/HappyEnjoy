@@ -105,11 +105,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                     .centerCrop()
                     .placeholder(R.drawable.jiazai);
             //.error(R.drawable.error)
+            String temp = "";
+            try{
+                temp = userData.getImage();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
             Glide
                     .with(activity)
-                    .load(userData.getImage())
+                    .load(temp)
                     .apply(options)
                     .into(headerViewHolder.head_portrait);
+
             headerViewHolder.view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
