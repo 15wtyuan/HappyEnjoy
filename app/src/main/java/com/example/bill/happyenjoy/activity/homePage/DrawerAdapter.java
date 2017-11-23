@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.publish.EditActivity;
@@ -101,10 +100,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                 userData = temp;
             }
             headerViewHolder.my_name.setText(userData.getFlowerName());
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(R.drawable.jiazai);
-            //.error(R.drawable.error)
             String temp = "";
             try{
                 temp = userData.getImage();
@@ -114,7 +109,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
             Glide
                     .with(activity)
                     .load(temp)
-                    .apply(options)
+                    .centerCrop()
+                    .placeholder(R.drawable.jiazai)
                     .into(headerViewHolder.head_portrait);
 
             headerViewHolder.view.setOnClickListener(new View.OnClickListener(){

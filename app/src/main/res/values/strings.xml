@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HappyEnjoy</string>
+    <string name="title_activity_photo_page">PhotoPage</string>
+    <string name="clicktoshowimgs">点击显示图片</string>
 </resources>

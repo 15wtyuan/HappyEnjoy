@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.UserData;
@@ -110,7 +109,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
         return viewHolder;
     }
-    public static String TimeStamp2Date(String timestampString, String formats) {
+    public static String TimeStamp2Date(String timestampString, String formats) {//将Unix时间截转换成能看懂的字符串
         if (TextUtils.isEmpty(formats))
             formats = "yyyy-MM-dd HH:mm:ss";
         Long timestamp = Long.parseLong(timestampString) * 1000;
@@ -129,12 +128,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
         //holder.kind_name.setText(issueDate.getLabel());
         holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.jiazai);
-        //.error(R.drawable.error)
 
-        String temp = "";
+        String temp = "";//防止头像的url为空
         try{
             temp = userData.getImage();
         }catch (Exception e) {
@@ -143,10 +138,11 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         Glide
                 .with(activity)
                 .load(temp)
-                .apply(options)
+                .centerCrop()
+                .placeholder(R.drawable.jiazai)
                 .into(holder.touxiang);
 
-        holder.user_name.setText(userData.getFlowerName());
+        holder.user_name.setText(userData.getFlowerName());//设置标签
         if (issueDate.getLabel().equals("11")){
             holder.kind_name.setText("拼车");
             holder.kind.setImageResource(R.mipmap.pinche);
@@ -180,8 +176,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
 
 
-        if(holder instanceof TupianViewHolder){
-            List<String> tupianURLs = new ArrayList<>();
+        if(holder instanceof TupianViewHolder){//设置图片的列表
+            final List<String> tupianURLs = new ArrayList<>();
             if (!issueDate.getPicture1().equals("")){
                 tupianURLs.add(issueDate.getPicture1());
             }
@@ -209,7 +205,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
             if (!issueDate.getPicture9().equals("")){
                 tupianURLs.add(issueDate.getPicture9());
             }
-            TupianViewHolder tupianViewHolder = (TupianViewHolder)holder;
+            final TupianViewHolder tupianViewHolder = (TupianViewHolder)holder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             tupianViewHolder.tupian.setLayoutManager(layoutManager);

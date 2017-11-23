@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.showimagesdialogdemo.component.ShowImagesDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +47,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String tupianURL = tupianURLs.get(position);
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.jiazai);
-                //.error(R.drawable.error)
+        final String tupianURL = tupianURLs.get(position);
         Glide
                 .with(activity)
                 .load(tupianURL)
-                .apply(options)
+                .centerCrop()
+                .thumbnail(0.1f)
+                .placeholder(R.drawable.jiazai)
                 .into(holder.tupianItem);
+        holder.tupianItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ShowImagesDialog(activity,tupianURLs).show();
+            }
+        });
     }
 
     @Override

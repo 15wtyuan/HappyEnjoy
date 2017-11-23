@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -34,6 +35,7 @@ import com.example.bill.happyenjoy.model.IssueDateJson;
 import com.example.bill.happyenjoy.model.UserData;
 import com.example.bill.happyenjoy.model.UserLoginData;
 import com.example.bill.happyenjoy.networkTools.HttpUtil;
+import com.example.bill.happyenjoy.showimagesdialogdemo.base.Config;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -79,6 +81,7 @@ public class HomePageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        getDeviceDensity();
 
         RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
@@ -167,6 +170,16 @@ public class HomePageActivity extends BaseActivity {
         uid = userData.getUid();//获取用户id
         i = 0;
         addIssueDate();
+    }
+
+    /**
+     * 获取当前设备的屏幕密度等基本参数
+     */
+    protected void getDeviceDensity() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Config.EXACT_SCREEN_HEIGHT = metrics.heightPixels;
+        Config.EXACT_SCREEN_WIDTH = metrics.widthPixels;
     }
 
     private void addIssueDate(){//往issue添加数据
