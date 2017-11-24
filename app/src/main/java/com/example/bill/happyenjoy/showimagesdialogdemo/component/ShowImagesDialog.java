@@ -41,11 +41,13 @@ public class ShowImagesDialog extends Dialog {
     private List<String> mTitles;
     private List<View> mViews;
     private ShowImagesAdapter mAdapter;
+    private int itemPosition;
 
-    public ShowImagesDialog(@NonNull Context context, List<String> imgUrls) {
+    public ShowImagesDialog(@NonNull Context context, List<String> imgUrls,int itemPosition) {
         super(context, R.style.transparentBgDialog);
         this.mContext = context;
         this.mImgUrls = imgUrls;
+        this.itemPosition = itemPosition;
         initView();
         initData();
     }
@@ -99,7 +101,8 @@ public class ShowImagesDialog extends Dialog {
 
         mAdapter = new ShowImagesAdapter(mViews, mTitles);
         mViewPager.setAdapter(mAdapter);
-        mIndexText.setText(1 + "/" + mImgUrls.size());
+        mViewPager.setCurrentItem(itemPosition);
+        mIndexText.setText(itemPosition+1 + "/" + mImgUrls.size());
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

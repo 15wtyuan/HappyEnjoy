@@ -46,7 +46,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final String tupianURL = tupianURLs.get(position);
         Glide
                 .with(activity)
@@ -58,7 +58,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         holder.tupianItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ShowImagesDialog(activity,tupianURLs).show();
+                new ShowImagesDialog(activity,tupianURLs,position).show();
             }
         });
     }
