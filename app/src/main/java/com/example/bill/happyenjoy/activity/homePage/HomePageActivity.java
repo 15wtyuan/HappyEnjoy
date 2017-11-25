@@ -85,7 +85,7 @@ public class HomePageActivity extends BaseActivity {
         issueList.addOnScrollListener(new RecyclerViewScrollListener() {//消息列表上滑悬浮按钮消失，下滑时出现
             @Override
             public void hide() {
-                bmb.animate().translationY(1000).setInterpolator(new AccelerateDecelerateInterpolator());
+                bmb.animate().translationY(250).setInterpolator(new AccelerateDecelerateInterpolator());
             }
 
             @Override
@@ -254,11 +254,11 @@ public class HomePageActivity extends BaseActivity {
         bmb.setHighlightedColor(getResources().getColor(R.color.orange));
         bmb.setDotRadius(0);
         bmb.setUse3DTransformAnimation(true);
-        bmb.setShadowEffect(true);
-        bmb.setShadowColor(Color.parseColor("#55000000"));
-        bmb.setShadowOffsetX(-4);
+        bmb.setShadowEffect(true);//设置大悬浮按钮的阴影是否显示
+        bmb.setShadowColor(Color.parseColor("#55000000"));//大悬浮按钮阴影颜色
+        bmb.setShadowOffsetX(-4);//阴影偏移
         bmb.setShadowOffsetY(4);
-        bmb.setShadowRadius(4);
+        bmb.setShadowRadius(4);//阴影的圆角
     }
 
     private int addImageRes(int i){
