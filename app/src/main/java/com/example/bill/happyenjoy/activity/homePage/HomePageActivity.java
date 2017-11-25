@@ -15,10 +15,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.ActivityCollector;
@@ -59,9 +56,8 @@ public class HomePageActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar toolbar;
     private SearchDialog searchDialog;
-    private View searchMune;
-    private TextView mTextView;
     private Boolean isSearch = false;
+    private BoomMenuButton bmb;
 
     private int uid;//存取用户的id
     private int i;//提取issue 用；api有要求
@@ -77,6 +73,7 @@ public class HomePageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         getDeviceDensity();
+        initBoomMenuButton();//悬浮按钮 添加 的初始化
 
         RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);//消息列表
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
@@ -85,6 +82,17 @@ public class HomePageActivity extends BaseActivity {
         issueList.setAdapter(issueAdapter);
         initIssueDate();//初始化首页前十条内容
         ((SimpleItemAnimator)issueList.getItemAnimator()).setSupportsChangeAnimations(false);//取消item变化的动画，不取消的话更新会闪烁
+        issueList.addOnScrollListener(new RecyclerViewScrollListener() {//消息列表上滑悬浮按钮消失，下滑时出现
+            @Override
+            public void hide() {
+                bmb.animate().translationY(1000).setInterpolator(new AccelerateDecelerateInterpolator());
+            }
+
+            @Override
+            public void show() {
+                bmb.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator());
+            }
+        });
 
 
         springView = (SpringView) findViewById(R.id.springview);//上拉下拉刷新
@@ -116,9 +124,6 @@ public class HomePageActivity extends BaseActivity {
         springView.setFooter(new DefaultFooter(this));
 
         searchDialog = new SearchDialog(this);
-        searchMune = (RelativeLayout)findViewById(R.id.search_mune);
-
-        initBoomMenuButton();//悬浮按钮 添加 的初始化
 
         toolbar = (Toolbar) findViewById(R.id.green_toolbar_homepage);//标题栏的绑定
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
@@ -134,25 +139,23 @@ public class HomePageActivity extends BaseActivity {
         adapter.setOnItemClickListener(new MyOnItemClickListener());
         recyclerView.setAdapter(adapter);
 
-        ImageButton searchViewButton = (ImageButton)findViewById(R.id.searchview_button);//搜索按钮
-        searchViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSearch();//打开搜索
-            }
-        });
-
     }
 
     private void initIssueDate(){
         issueDates.clear();
-        List<UserData> userDatas = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+        List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
         UserData userData = new UserData();
-        for (UserData temp:userDatas){
+        for (UserData temp:userDatastemp){
             userData = temp;
         }
         uid = userData.getUid();//获取用户id
         i = 0;
+        IssueDate search_button = new IssueDate();
+        search_button.setId(-10086);
+        issueDates.add(0,search_button);
+        UserData search_button2 = new UserData();
+        search_button2.setUid(-10086);
+        userDatas.add(0,search_button2);
         addIssueDate();
     }
 
@@ -212,7 +215,7 @@ public class HomePageActivity extends BaseActivity {
     }
 
 
-    private void openSearch(){
+    public void openSearch(){
         searchDialog.show();
         isSearch = true;
     }
@@ -221,10 +224,6 @@ public class HomePageActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (isSearch){
             isSearch = false;
-            //mPopupWindow.dismiss();
-            toolbar.setVisibility(View.VISIBLE);
-            //search.setVisibility(View.INVISIBLE);
-            searchMune.setVisibility(View.VISIBLE);
             return false;
         }else {
             ActivityCollector.finishAll();
@@ -233,7 +232,7 @@ public class HomePageActivity extends BaseActivity {
     }
 
     private void initBoomMenuButton(){
-        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
+        bmb = (BoomMenuButton) findViewById(R.id.bmb);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
