@@ -2,25 +2,21 @@ package com.example.bill.happyenjoy.activity.homePage;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,7 +25,6 @@ import com.example.bill.happyenjoy.activity.ActivityCollector;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.login.MainActivity;
 import com.example.bill.happyenjoy.activity.publish.EditActivity;
-import com.example.bill.happyenjoy.bakerj.backgroundblurpopupwindow.BackgroundBlurPopupWindow;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.IssueDateJson;
 import com.example.bill.happyenjoy.model.UserData;
@@ -60,20 +55,20 @@ import okhttp3.Response;
 
 public class HomePageActivity extends BaseActivity {
 
-    private BackgroundBlurPopupWindow mPopupWindow;
+
     private DrawerLayout mDrawerLayout;
     private Toolbar toolbar;
-    private View search;
+    private SearchDialog searchDialog;
     private View searchMune;
     private TextView mTextView;
     private Boolean isSearch = false;
 
-    private int uid;
+    private int uid;//存取用户的id
     private int i;//提取issue 用；api有要求
     private List<IssueDate> issueDates = new ArrayList<>();
     private List<UserData> userDatas = new ArrayList<>();
 
-    private SpringView springView;
+    private SpringView springView;//上拉下拉
 
     private IssueAdapter issueAdapter;
 
@@ -83,18 +78,20 @@ public class HomePageActivity extends BaseActivity {
         setContentView(R.layout.activity_home_page);
         getDeviceDensity();
 
-        RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);
+        RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);//消息列表
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
         issueAdapter = new IssueAdapter(issueDates,userDatas,this);
         issueList.setLayoutManager(layoutManagerIssue);
         issueList.setAdapter(issueAdapter);
-        initIssueDate();
+        initIssueDate();//初始化首页前十条内容
+        ((SimpleItemAnimator)issueList.getItemAnimator()).setSupportsChangeAnimations(false);//取消item变化的动画，不取消的话更新会闪烁
 
-        springView = (SpringView) findViewById(R.id.springview);
+
+        springView = (SpringView) findViewById(R.id.springview);//上拉下拉刷新
         springView.setType(SpringView.Type.FOLLOW);
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh() {//下拉刷新
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -105,7 +102,7 @@ public class HomePageActivity extends BaseActivity {
             }
 
             @Override
-            public void onLoadmore() {
+            public void onLoadmore() {//下拉加载更多
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -118,7 +115,7 @@ public class HomePageActivity extends BaseActivity {
         springView.setHeader(new DefaultHeader(this));
         springView.setFooter(new DefaultFooter(this));
 
-        search = (RelativeLayout)findViewById(R.id.search);
+        searchDialog = new SearchDialog(this);
         searchMune = (RelativeLayout)findViewById(R.id.search_mune);
 
         initBoomMenuButton();//悬浮按钮 添加 的初始化
@@ -141,22 +138,9 @@ public class HomePageActivity extends BaseActivity {
         searchViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSearch();
+                openSearch();//打开搜索
             }
         });
-
-        mTextView = new TextView(this);//打开搜索按钮后的背景虚化PopupWindow的初始化
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        mTextView.setPadding(10, 10, 10,  10);
-        mTextView.setGravity(Gravity.CENTER);
-        mPopupWindow = new BackgroundBlurPopupWindow(mTextView, WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT, this, true);
-        mPopupWindow.setFocusable(false);
-        mPopupWindow.setOutsideTouchable(false);
-        mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        mPopupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-        mPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
 
@@ -201,7 +185,7 @@ public class HomePageActivity extends BaseActivity {
         });
     }
 
-    private void linkFailure(){
+    private void linkFailure(){//网络错误后
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -229,15 +213,7 @@ public class HomePageActivity extends BaseActivity {
 
 
     private void openSearch(){
-        toolbar.setVisibility(View.INVISIBLE);
-        search.setVisibility(View.VISIBLE);
-        searchMune.setVisibility(View.INVISIBLE);
-        mPopupWindow.setBlurRadius(BackgroundBlurPopupWindow.DEFAULT_BLUR_RADIUS);
-        mPopupWindow.setDownScaleFactor(BackgroundBlurPopupWindow.DEFAULT_BLUR_DOWN_SCALE_FACTOR);
-        mPopupWindow.setDarkColor(Color.parseColor("#a0000000"));
-        mPopupWindow.resetDarkPosition();
-        mPopupWindow.darkBelow(search);
-        mPopupWindow.showAsDropDown(search, Gravity.CENTER, 0);
+        searchDialog.show();
         isSearch = true;
     }
 
@@ -245,9 +221,9 @@ public class HomePageActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (isSearch){
             isSearch = false;
-            mPopupWindow.dismiss();
+            //mPopupWindow.dismiss();
             toolbar.setVisibility(View.VISIBLE);
-            search.setVisibility(View.INVISIBLE);
+            //search.setVisibility(View.INVISIBLE);
             searchMune.setVisibility(View.VISIBLE);
             return false;
         }else {
@@ -268,10 +244,7 @@ public class HomePageActivity extends BaseActivity {
                         }
                     })
                     .shadowEffect(false)
-                    //.shadowRadius(Util.dp2px(36))
-                    //.maxLines(2)
                     .normalColor(Color.parseColor("#00000000"))
-                    //.imagePadding(new Rect(1, 1, 1, 1))
                     .normalImageRes(addImageRes(i))
                     .normalText(addTextRes(i));
             bmb.addBuilder(builder);

@@ -1,9 +1,9 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +14,18 @@ import com.bumptech.glide.Glide;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.UserData;
+import com.example.bill.happyenjoy.networkTools.HttpUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by TT on 2017/11/3.
@@ -31,10 +37,11 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
     private static final int TYPE_NORMAL = 2;
 
     private List<IssueDate> issueDates = new ArrayList<>();
-    private AppCompatActivity activity;
+    private HomePageActivity activity;
     private List<UserData> userDatas = new ArrayList<>();
 
-    public IssueAdapter(List<IssueDate> issueDates,List<UserData> userDatas,AppCompatActivity activity){
+
+    public IssueAdapter(List<IssueDate> issueDates,List<UserData> userDatas,HomePageActivity activity){
         this.issueDates = issueDates;
         this.activity = activity;
         this.userDatas = userDatas;
@@ -88,7 +95,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
     @Override
     public int getItemViewType(int position) {
         IssueDate issueDate = issueDates.get(position);
-        if (issueDate.getPicture1().equals("")||issueDate.getPicture1()==null){
+        if (issueDate.getPicture1().equals("")||issueDate.getPicture1()==null){//判断有没有第一张图片，没有的话就是不带图片的
             return TYPE_NORMAL;
         }else {
             return TYPE_HAVETUPIAN;
@@ -118,16 +125,73 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        IssueDate issueDate = issueDates.get(position);
-        UserData userData = userDatas.get(position);
-        holder.biaoti.setText(issueDate.getTitle());
-        holder.neirong.setText(issueDate.getBrief());
-        holder.price.setText(issueDate.getPrice());
-        holder.zan_num.setText(Integer.toString(issueDate.getZan()));
-        holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));
-        //holder.kind_name.setText(issueDate.getLabel());
-        holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final IssueDate issueDate = issueDates.get(position);
+        final UserData userData = userDatas.get(position);
+        holder.biaoti.setText(issueDate.getTitle());//标题
+        holder.neirong.setText(issueDate.getBrief());//内容
+        holder.price.setText("￥"+issueDate.getPrice());//价格
+        holder.zan_num.setText(Integer.toString(issueDate.getZan()));//赞的个数
+        holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));//评论的个数
+        holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));//时间
+
+        if (issueDate.getZanStatus()==0){//是否已经点赞，设置点赞的图标
+            holder.zan.setImageResource(R.mipmap.zan_no);
+        }else {
+            holder.zan.setImageResource(R.mipmap.zan_yes);
+        }
+        holder.zan.setOnClickListener(new View.OnClickListener() {//点赞功能的监听
+            @Override
+            public void onClick(View view) {
+                if (issueDate.getZanStatus()==0){
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("user_id",Integer.toString(userData.getUid()))
+                            .add("issue_id",Integer.toString(issueDate.getId()))
+                            .build();
+                    HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/newZan",requestBody,new okhttp3.Callback(){
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.d("test","点赞失败");
+                        }
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Log.d("test","点赞成功");
+                            issueDate.setZanStatus(1);
+                            issueDate.setZan(issueDate.getZan()+1);
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    notifyItemChanged(position);
+                                }
+                            });
+                        }
+                    });
+                }else {
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("user_id",Integer.toString(userData.getUid()))
+                            .add("issue_id",Integer.toString(issueDate.getId()))
+                            .build();
+                    HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/deleteZan",requestBody,new okhttp3.Callback(){
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.d("test","取消赞失败");
+                        }
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Log.d("test","取消赞成功");
+                            issueDate.setZanStatus(0);
+                            issueDate.setZan(issueDate.getZan()-1);
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    notifyItemChanged(position);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
 
         String temp = "";//防止头像的url为空
         try{
@@ -135,7 +199,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }catch (Exception e) {
             e.printStackTrace();
         }
-        Glide
+        Glide//加载头像
                 .with(activity)
                 .load(temp)
                 .centerCrop()
@@ -176,7 +240,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
 
 
-        if(holder instanceof TupianViewHolder){//设置图片的列表
+        if(holder instanceof TupianViewHolder){//如果有图片的话，设置图片的列表
             final List<String> tupianURLs = new ArrayList<>();
             if (!issueDate.getPicture1().equals("")){
                 tupianURLs.add(issueDate.getPicture1());
