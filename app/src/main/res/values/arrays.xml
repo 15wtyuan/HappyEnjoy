@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="idles">
+        <item>数码</item>
+        <item>居家</item>
+        <item>图书</item>
+        <item>其他</item>
+    </string-array>
+</resources>

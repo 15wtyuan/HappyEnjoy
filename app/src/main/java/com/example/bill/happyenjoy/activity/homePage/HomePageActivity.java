@@ -21,7 +21,7 @@ import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.ActivityCollector;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.login.MainActivity;
-import com.example.bill.happyenjoy.activity.publish.EditActivity;
+import com.example.bill.happyenjoy.activity.publish.IdleEditActivity;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.IssueDateJson;
 import com.example.bill.happyenjoy.model.UserData;
@@ -256,6 +256,18 @@ public class HomePageActivity extends BaseActivity {
                         public void onBoomButtonClick(int index) {
                             // When the boom-button corresponding this builder is clicked.
                             //Toast.makeText(TextOutsideCircleButtonActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+                            switch (index){
+                                case 0:
+                                   Intent intent = new Intent(HomePageActivity.this,IdleEditActivity.class);
+                                   startActivity(intent);
+                                   break;
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                            }
+
+
                         }
                     })
                     .shadowEffect(false)//子按钮的阴影
@@ -315,7 +327,7 @@ public class HomePageActivity extends BaseActivity {
         public void itemClick(DrawerAdapter.DrawerItemNormal drawerItemNormal) {
             switch (drawerItemNormal.name) {
                 case "我的发布":
-                    Intent intent2 = new Intent(HomePageActivity.this,EditActivity.class);
+                    Intent intent2 = new Intent(HomePageActivity.this,IdleEditActivity.class);
                     startActivity(intent2);
 
                     break;

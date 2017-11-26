@@ -1,46 +1,48 @@
 package com.example.bill.happyenjoy.activity.publish;
 
+import android.content.Context;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.View;
 
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
+import com.example.bill.happyenjoy.activity.homePage.ImageAdapter;
+import com.example.bill.happyenjoy.activity.login.MainActivity;
+import com.example.bill.happyenjoy.model.Commodity;
+
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by bill on 2017/10/7.
  */
 
-public class EditActivity extends BaseActivity {
+public class IdleEditActivity extends BaseActivity {
 
 
 
@@ -51,12 +53,40 @@ public class EditActivity extends BaseActivity {
     private Bitmap bmp;                      //导入临时图片
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;     //适配器
-
+    private Spinner spinner;
+    private MyAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_layout);
+        setContentView(R.layout.idle_edit_layout);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        List<Commodity> list = new ArrayList<>();
+
+
+        Commodity commodity1 = new Commodity();
+        Commodity commodity2 = new Commodity();
+        Commodity commodity3 = new Commodity();
+        Commodity commodity4 = new Commodity();
+        commodity1.setIcon(R.drawable.xiala_shuma);
+        commodity1.setName("数码");
+        list.add(commodity1);
+        commodity2.setIcon(R.drawable.xiala_jujia);
+        commodity2.setName("居家");
+        list.add(commodity2);
+        commodity3.setIcon(R.drawable.xiala_tushu);
+        commodity3.setName("图书");
+        list.add(commodity3);
+        commodity4.setIcon(R.drawable.xiala_qita);
+        commodity4.setName("其他");
+        list.add(commodity4);
+
+
+
+        adapter = new MyAdapter(this, list);
+
+        spinner.setAdapter(adapter);
 
         //解决软键盘挡住输入框的问题
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
@@ -112,9 +142,9 @@ public class EditActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 if (imageItem.size() == 10) { //第一张为默认图片
-                    Toast.makeText(EditActivity.this, "图片数9张已满", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IdleEditActivity.this, "图片数9张已满", Toast.LENGTH_SHORT).show();
                 } else if (position == 0) { //点击图片位置为+ 0对应0张图片
-                    Toast.makeText(EditActivity.this, "添加图片", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IdleEditActivity.this, "添加图片", Toast.LENGTH_SHORT).show();
                     //选择图片
                     Intent intent = new Intent(Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -128,6 +158,61 @@ public class EditActivity extends BaseActivity {
             }
         });
     }
+
+    private class MyAdapter extends BaseAdapter {
+
+        private Context mContext;
+        private List<Commodity> mList;
+
+        public MyAdapter(Context context, List<Commodity> list) {
+            this.mContext = context;
+            this.mList = list;
+        }
+
+        @Override
+        public int getCount() {
+            return mList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ViewHolder holder = null;
+
+            if (convertView == null) {
+                convertView = View.inflate(IdleEditActivity.this, R.layout.item, null);
+
+                holder = new ViewHolder();
+
+                holder.iv = (ImageView) convertView.findViewById(R.id.iv);
+                holder.tv = (TextView) convertView.findViewById(R.id.tv);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.iv.setImageResource(mList.get(position).getIcon());
+            holder.tv.setText(mList.get(position).getName());
+
+            return convertView;
+        }
+    }
+    static class ViewHolder {
+        private ImageView iv;
+        private TextView tv;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -215,7 +300,7 @@ public class EditActivity extends BaseActivity {
     }
 
     protected void dialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(IdleEditActivity.this);
         builder.setMessage("确认移除已添加图片吗？");
         builder.setTitle("提示");
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {

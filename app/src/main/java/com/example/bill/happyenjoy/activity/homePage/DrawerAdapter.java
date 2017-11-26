@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
-import com.example.bill.happyenjoy.activity.publish.EditActivity;
+import com.example.bill.happyenjoy.activity.publish.IdleEditActivity;
 import com.example.bill.happyenjoy.model.UserData;
 
 import org.litepal.crud.DataSupport;
@@ -119,7 +119,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(activity,EditActivity.class);
+                            Intent intent = new Intent(activity,IdleEditActivity.class);
                             activity.startActivity(intent);
                         }
                     });

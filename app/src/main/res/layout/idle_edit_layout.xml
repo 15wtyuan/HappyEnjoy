@@ -131,67 +131,68 @@
         android:id="@+id/full_information"
         android:layout_width="match_parent"
         android:layout_height="126dp"
-        android:background="#ffffff"
-        android:layout_below="@+id/college_name_layout"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/college_name_layout"
         android:layout_marginTop="10dp"
+        android:background="#ffffff"
         android:elevation="2dp">
 
         <TextView
-            android:paddingTop="11.33dp"
             android:id="@+id/idleType_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="闲置类别"
-            android:textSize="14dp"
-            android:textColor="#212121"
             android:paddingLeft="18.67dp"
-            />
+            android:paddingTop="11.33dp"
+            android:text="闲置类别"
+            android:textColor="#212121"
+            android:textSize="14dp" />
 
-        <EditText
-            android:background="#ffffff"
-            android:id="@+id/idleType_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_toEndOf="@+id/idleType_text"
-            android:paddingBottom="9dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="80dp"
-            android:hint="请选择"
-            android:textSize="14dp"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="125dp"
+            android:layout_height="43dp"
+
+
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="67dp"
+            android:layout_toEndOf="@+id/idleType_text">
+
+        </Spinner>
+
 
         <ImageView
-            android:background="@drawable/line"
-            android:layout_below="@+id/idleType_text"
             android:id="@+id/line2"
             android:layout_width="322.67dp"
             android:layout_height="0.67dp"
+            android:layout_below="@+id/idleType_text"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="11.33dp"
-            android:layout_centerHorizontal="true"/>
+            android:background="@drawable/line" />
 
         <TextView
 
             android:id="@+id/contact_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line2"
             android:layout_alignLeft="@+id/idleType_text"
-            android:paddingLeft="18.67dp"
+            android:layout_below="@+id/line2"
             android:layout_marginTop="11.33dp"
+            android:paddingLeft="18.67dp"
             android:text="联系方式"
-            android:textSize="14dp"
-            android:textColor="#212121"/>
+            android:textColor="#212121"
+            android:textSize="14dp" />
 
         <EditText
-            android:background="#ffffff"
             android:id="@+id/contact_edit"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
-           android:paddingBottom="8dp"
-            android:layout_toEndOf="@+id/contact_text"
             android:layout_alignTop="@+id/contact_text"
             android:layout_marginLeft="80dp"
+            android:layout_toEndOf="@+id/contact_text"
+            android:background="#ffffff"
             android:hint="必填"
+            android:paddingBottom="8dp"
             android:textSize="14dp" />
 
         <ImageView
@@ -199,32 +200,31 @@
             android:layout_width="322.67dp"
             android:layout_height="0.67dp"
             android:layout_below="@+id/contact_text"
-            android:layout_marginTop="11.33dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/line"/>
+            android:layout_marginTop="11.33dp"
+            android:background="@drawable/line" />
 
         <TextView
             android:id="@+id/prize_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="出售价格"
-            android:textSize="14dp"
-            android:textColor="#212121"
             android:layout_below="@+id/line3"
-            android:paddingLeft="18.67dp"
             android:layout_marginTop="11.33dp"
-            />
+            android:paddingLeft="18.67dp"
+            android:text="出售价格"
+            android:textColor="#212121"
+            android:textSize="14dp" />
 
         <EditText
-            android:background="#ffffff"
             android:id="@+id/_edit"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
-            android:paddingBottom="8dp"
-            android:layout_toEndOf="@+id/prize_text"
             android:layout_alignTop="@+id/prize_text"
             android:layout_marginLeft="80dp"
+            android:layout_toEndOf="@+id/prize_text"
+            android:background="#ffffff"
             android:hint="必填"
+            android:paddingBottom="8dp"
             android:textSize="14dp" />
 
 
