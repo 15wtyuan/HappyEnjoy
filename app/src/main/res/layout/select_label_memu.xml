@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/shenghuo_bt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_shenghuo"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="生活"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/pinche_bt"
+        android:layout_below="@+id/shenghuo_bt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_pinche"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="拼车"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/paotui_bt"
+        android:layout_below="@+id/shenghuo_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/pinche_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_paotui"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="跑腿"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/xunwu_bt"
+        android:layout_below="@+id/shenghuo_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/paotui_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_xunwu"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="寻物"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/shenghuo_qita_bt"
+        android:layout_below="@+id/shenghuo_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/xunwu_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_shenghuo_qita"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="其他"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/xuexi_bt"
+        android:layout_below="@+id/paotui_bt"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_xuexi"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="学习"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/yingyu_bt"
+        android:layout_below="@+id/xuexi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_yingyu"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="英语"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/sheke_bt"
+        android:layout_below="@+id/xuexi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/yingyu_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_sheke"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="社科"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/xianzhi_bt"
+        android:layout_below="@+id/yingyu_bt"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_xianzhi"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="闲置"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/shuma_bt"
+        android:layout_below="@+id/xianzhi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_shuma"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="数码"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/jujia_bt"
+        android:layout_below="@+id/xianzhi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/shuma_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_jujia"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="居家"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/tushu_bt"
+        android:layout_below="@+id/xianzhi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/jujia_bt"
+        android:layout_marginLeft="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_tushu"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="图书"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="74.67dp"
+        android:layout_height="28.67dp"
+        android:id="@+id/xianzhi_qita_bt"
+        android:layout_below="@+id/xianzhi_bt"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tushu_bt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/s_xianzhi_qita"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="其他"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

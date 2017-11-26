@@ -79,6 +79,13 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
     }
 
+    public class SelectButton extends ViewHolder{
+
+        public SelectButton(View view){
+            super(view);
+        }
+    }
+
     public class SearchButton extends ViewHolder{
 
         ImageButton searchview_button;
@@ -111,6 +118,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         IssueDate issueDate = issueDates.get(position);
         if (issueDate.getId()==-10086){
             return TYPE_SEARCH_BUTTON;
+        }else if (issueDate.getId()==-10000){
+            return TYPE_SELECT;
         }
         if (issueDate.getPicture1().equals("")||issueDate.getPicture1()==null){//判断有没有第一张图片，没有的话就是不带图片的
             return TYPE_NORMAL;
@@ -133,6 +142,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
             case TYPE_SEARCH_BUTTON:
                 viewHolder = new SearchButton(inflater.inflate(R.layout.search_button,parent,false));
                 break;
+            case TYPE_SELECT:
+                viewHolder = new SelectButton(inflater.inflate(R.layout.select_label_memu,parent,false));
         }
         return viewHolder;
     }
@@ -297,7 +308,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
             tupianViewHolder.tupian.setLayoutManager(layoutManager);
             ImageAdapter imageAdapter = new ImageAdapter(tupianURLs,activity);
             tupianViewHolder.tupian.setAdapter(imageAdapter);
-        }else if (holder instanceof SearchButton){
+        }
+        if (holder instanceof SearchButton){
             final SearchButton searchButton = (SearchButton)holder;
             searchButton.searchview_button.setOnClickListener(new View.OnClickListener() {//设置点击搜索按钮的监听
                 @Override
@@ -309,6 +321,27 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                             activity.openSearch();
                         }
                     });
+                }
+            });
+
+            searchButton.select_all_botton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (issueDates.get(1).getId()!=-10000){
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.addSelectMune();
+                            }
+                        });
+                    }else {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.removeMune();
+                            }
+                        });
+                    }
                 }
             });
         }

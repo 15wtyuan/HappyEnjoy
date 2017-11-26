@@ -123,7 +123,7 @@ public class HomePageActivity extends BaseActivity {
         springView.setHeader(new DefaultHeader(this));
         springView.setFooter(new DefaultFooter(this));
 
-        searchDialog = new SearchDialog(this);
+        searchDialog = new SearchDialog(this);//初始化搜索Dialog
 
         toolbar = (Toolbar) findViewById(R.id.green_toolbar_homepage);//标题栏的绑定
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
@@ -132,7 +132,7 @@ public class HomePageActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.home_page);//右滑菜单
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.my_item);
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.my_item);//右滑菜单用RecyclerView实现
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         DrawerAdapter adapter = new DrawerAdapter(this);
@@ -142,21 +142,21 @@ public class HomePageActivity extends BaseActivity {
     }
 
     private void initIssueDate(){
-        issueDates.clear();
+        issueDates.clear();//清空所有消息
         List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
         UserData userData = new UserData();
         for (UserData temp:userDatastemp){
             userData = temp;
         }
         uid = userData.getUid();//获取用户id
-        i = 0;
-        IssueDate search_button = new IssueDate();
+        i = 0;//初始化i
+        IssueDate search_button = new IssueDate();//第一个被设置为搜索按钮
         search_button.setId(-10086);
         issueDates.add(0,search_button);
-        UserData search_button2 = new UserData();
+        UserData search_button2 = new UserData();//第一个被设置为搜索按钮
         search_button2.setUid(-10086);
         userDatas.add(0,search_button2);
-        addIssueDate();
+        addIssueDate();//添加10条信息
     }
 
     /**
@@ -169,7 +169,7 @@ public class HomePageActivity extends BaseActivity {
         Config.EXACT_SCREEN_WIDTH = metrics.widthPixels;
     }
 
-    private void addIssueDate(){//往issue添加数据
+    private void addIssueDate(){//往issue添加10条数据
         RequestBody requestBody = new FormBody.Builder()
                 .add("label","0")
                 .add("i",Integer.toString(i))
@@ -199,7 +199,7 @@ public class HomePageActivity extends BaseActivity {
 
     private void parseIssueJSON(final String responseData){//处理获取的json
         Gson gson = new GsonBuilder().serializeNulls().create();
-        IssueDateJson issueDateJson = gson.fromJson(responseData, IssueDateJson.class);
+        IssueDateJson issueDateJson = gson.fromJson(responseData, IssueDateJson.class);//使用Gson处理获取的json
         if (issueDateJson.getMessage().equals("success")){
             issueDates.addAll(issueDateJson.getData().getData());
             userDatas.addAll(issueDateJson.getData().getUser());
@@ -209,15 +209,31 @@ public class HomePageActivity extends BaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                issueAdapter.notifyDataSetChanged();
+                issueAdapter.notifyDataSetChanged();//更新issue的RecyclerView
             }
         });
     }
 
 
-    public void openSearch(){
+    public void openSearch(){//打开搜索Dialog
         searchDialog.show();
         isSearch = true;
+    }
+
+    public void addSelectMune(){
+        UserData selectMune1 = new UserData();
+        selectMune1.setUid(-10000);
+        userDatas.add(1,selectMune1);
+        IssueDate selectMune2 = new IssueDate();
+        selectMune2.setId(-10000);
+        issueDates.add(1,selectMune2);
+        issueAdapter.notifyItemInserted(1);
+    }
+
+    public void removeMune(){
+        userDatas.remove(1);
+        issueDates.remove(1);
+        issueAdapter.notifyItemRemoved(1);
     }
 
     @Override
@@ -231,21 +247,21 @@ public class HomePageActivity extends BaseActivity {
         }
     }
 
-    private void initBoomMenuButton(){
+    private void initBoomMenuButton(){//初始化悬浮按钮
         bmb = (BoomMenuButton) findViewById(R.id.bmb);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {//添加子按钮
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
-                    .listener(new OnBMClickListener() {
+                    .listener(new OnBMClickListener() {//子按钮的监听
                         @Override
                         public void onBoomButtonClick(int index) {
                             // When the boom-button corresponding this builder is clicked.
                             //Toast.makeText(TextOutsideCircleButtonActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .shadowEffect(false)
+                    .shadowEffect(false)//子按钮的阴影
                     .normalColor(Color.parseColor("#00000000"))
-                    .normalImageRes(addImageRes(i))
-                    .normalText(addTextRes(i));
+                    .normalImageRes(addImageRes(i))//子按钮的背景图片
+                    .normalText(addTextRes(i));//子按钮的文字描述
             bmb.addBuilder(builder);
         }
         bmb.setButtonRadius(Util.dp2px(30));
@@ -261,7 +277,7 @@ public class HomePageActivity extends BaseActivity {
         bmb.setShadowRadius(4);//阴影的圆角
     }
 
-    private int addImageRes(int i){
+    private int addImageRes(int i){//悬浮按钮的子按钮背景图片
         switch (i){
             case 0:
                 return R.mipmap.add_digital_button_icon;
@@ -273,7 +289,7 @@ public class HomePageActivity extends BaseActivity {
         return R.mipmap.add_digital_button_icon;
     }
 
-    private String addTextRes(int i){
+    private String addTextRes(int i){//悬浮按钮的子按钮文字描述
         switch (i){
             case 0:
                 return "数码/居家/图书";
@@ -288,12 +304,12 @@ public class HomePageActivity extends BaseActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {//新消息按钮
         getMenuInflater().inflate(R.menu.alert_item,menu);
         return true;
     }
 
-    public class MyOnItemClickListener implements DrawerAdapter.OnItemClickListener {
+    public class MyOnItemClickListener implements DrawerAdapter.OnItemClickListener {//侧滑菜单的item 监听
 
         @Override
         public void itemClick(DrawerAdapter.DrawerItemNormal drawerItemNormal) {
@@ -330,12 +346,12 @@ public class HomePageActivity extends BaseActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {//导航栏菜单的监听
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);//打开侧滑菜单
                 break;
-            case R.id.alert_button:
+            case R.id.alert_button://新消息
                 showToase("新消息");
             default:
                 return super.onOptionsItemSelected(item);

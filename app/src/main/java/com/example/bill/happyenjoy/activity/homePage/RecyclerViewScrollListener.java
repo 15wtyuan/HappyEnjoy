@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 /**
  * Created by TT on 2017/11/25.
+ * 用来检测RecyclerView是否滑动
  */
 
 public abstract class RecyclerViewScrollListener extends RecyclerView.OnScrollListener {
