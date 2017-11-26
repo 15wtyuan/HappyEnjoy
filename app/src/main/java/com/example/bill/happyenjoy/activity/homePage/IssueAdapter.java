@@ -1,5 +1,6 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -81,8 +82,37 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
 
     public class SelectButton extends ViewHolder{
 
+        CardView shenghuo_bt;
+        CardView pinche_bt;
+        CardView paotui_bt;
+        CardView xunwu_bt;
+        CardView shenghuo_qita_bt;
+        CardView xuexi_bt;
+        CardView yingyu_bt;
+        CardView sheke_bt;
+        CardView xianzhi_bt;
+        CardView shuma_bt;
+        CardView jujia_bt;
+        CardView tushu_bt;
+        CardView xianzhi_qita_bt;
+        CardView quanbu_bt;
+
         public SelectButton(View view){
             super(view);
+            shenghuo_bt = (CardView)view.findViewById(R.id.shenghuo_bt);
+            pinche_bt = (CardView)view.findViewById(R.id.pinche_bt);
+            paotui_bt = (CardView)view.findViewById(R.id.paotui_bt);
+            xunwu_bt = (CardView)view.findViewById(R.id.xunwu_bt);
+            shenghuo_qita_bt = (CardView)view.findViewById(R.id.shenghuo_qita_bt);
+            xuexi_bt =(CardView)view.findViewById(R.id.xuexi_bt);
+            yingyu_bt = (CardView)view.findViewById(R.id.yingyu_bt);
+            sheke_bt = (CardView)view.findViewById(R.id.sheke_bt);
+            xianzhi_bt = (CardView)view.findViewById(R.id.xianzhi_bt);
+            shuma_bt = (CardView)view.findViewById(R.id.shuma_bt);
+            jujia_bt = (CardView)view.findViewById(R.id.jujia_bt);
+            tushu_bt = (CardView)view.findViewById(R.id.tushu_bt);
+            xianzhi_qita_bt = (CardView)view.findViewById(R.id.xianzhi_qita_bt);
+            quanbu_bt = (CardView)view.findViewById(R.id.quanbu_bt);
         }
     }
 
@@ -324,10 +354,17 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                 }
             });
 
-            searchButton.select_all_botton.setOnClickListener(new View.OnClickListener() {
+            searchButton.select_all_botton.setOnClickListener(new View.OnClickListener() {//打开标签栏的按钮的监听
                 @Override
                 public void onClick(View view) {
-                    if (issueDates.get(1).getId()!=-10000){
+                    if (issueDates.size()==1){//判断issue数组是否为0
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.addSelectMune();
+                            }
+                        });
+                    }else if(issueDates.get(1).getId()!=-10000){
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -342,6 +379,86 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                             }
                         });
                     }
+                }
+            });
+        }
+        if (holder instanceof SelectButton){
+            final SelectButton selectButton = (SelectButton) holder;
+            selectButton.pinche_bt.setOnClickListener(new View.OnClickListener() {//注册各个标签的监听，用了for循环试过没用，只能一个个写监听出来了
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(11);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.paotui_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(12);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.xunwu_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(13);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.shenghuo_qita_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(14);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.yingyu_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(21);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.sheke_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(22);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.shuma_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(31);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.jujia_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(32);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.tushu_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(33);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.xianzhi_qita_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(34);
+                    activity.initIssueDate();
+                }
+            });
+            selectButton.quanbu_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.changeLabel(0);
+                    activity.initIssueDate();
                 }
             });
         }

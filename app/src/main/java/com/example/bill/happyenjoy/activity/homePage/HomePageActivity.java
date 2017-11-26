@@ -61,12 +61,14 @@ public class HomePageActivity extends BaseActivity {
 
     private int uid;//存取用户的id
     private int i;//提取issue 用；api有要求
+    private int label;//用于issue列表的标签
     private List<IssueDate> issueDates = new ArrayList<>();
     private List<UserData> userDatas = new ArrayList<>();
 
     private SpringView springView;//上拉下拉
 
     private IssueAdapter issueAdapter;
+    private RecyclerView issueList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +77,12 @@ public class HomePageActivity extends BaseActivity {
         getDeviceDensity();
         initBoomMenuButton();//悬浮按钮 添加 的初始化
 
-        RecyclerView issueList = (RecyclerView)findViewById(R.id.issueList);//消息列表
+        issueList = (RecyclerView)findViewById(R.id.issueList);//消息列表
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
         issueAdapter = new IssueAdapter(issueDates,userDatas,this);
         issueList.setLayoutManager(layoutManagerIssue);
         issueList.setAdapter(issueAdapter);
+        label = 0;//初始是显示全部内容
         initIssueDate();//初始化首页前十条内容
         ((SimpleItemAnimator)issueList.getItemAnimator()).setSupportsChangeAnimations(false);//取消item变化的动画，不取消的话更新会闪烁
         issueList.addOnScrollListener(new RecyclerViewScrollListener() {//消息列表上滑悬浮按钮消失，下滑时出现
@@ -141,7 +144,7 @@ public class HomePageActivity extends BaseActivity {
 
     }
 
-    private void initIssueDate(){
+    public void initIssueDate(){
         issueDates.clear();//清空所有消息
         List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
         UserData userData = new UserData();
@@ -159,6 +162,11 @@ public class HomePageActivity extends BaseActivity {
         addIssueDate();//添加10条信息
     }
 
+    public void changeLabel(int label){//改变标签
+        this.label = label;
+        Log.d("test","标签改变为" + Integer.toString(label));
+    }
+
     /**
      * 获取当前设备的屏幕密度等基本参数
      */
@@ -171,7 +179,7 @@ public class HomePageActivity extends BaseActivity {
 
     private void addIssueDate(){//往issue添加10条数据
         RequestBody requestBody = new FormBody.Builder()
-                .add("label","0")
+                .add("label",Integer.toString(label))
                 .add("i",Integer.toString(i))
                 .add("user_id",Integer.toString(uid))
                 .build();
@@ -220,7 +228,7 @@ public class HomePageActivity extends BaseActivity {
         isSearch = true;
     }
 
-    public void addSelectMune(){
+    public void addSelectMune(){//打开标签选择菜单
         UserData selectMune1 = new UserData();
         selectMune1.setUid(-10000);
         userDatas.add(1,selectMune1);
@@ -228,6 +236,7 @@ public class HomePageActivity extends BaseActivity {
         selectMune2.setId(-10000);
         issueDates.add(1,selectMune2);
         issueAdapter.notifyItemInserted(1);
+        issueList.scrollToPosition(0);//到顶部
     }
 
     public void removeMune(){
