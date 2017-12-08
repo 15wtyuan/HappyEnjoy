@@ -181,7 +181,9 @@ public class IssueDetails extends BaseActivity {
             public void run() {
                 biaoti.setText(issueDate.getTitle());//标题
                 neirong.setText(issueDate.getBrief());//内容
-                price.setText("￥"+issueDate.getPrice());//价格
+                if (!issueDate.getPrice().equals("")){
+                    price.setText("￥"+issueDate.getPrice());//价格
+                }
                 zan_num.setText(Integer.toString(issueDate.getZan()));//赞的个数
                 pinlun_num.setText(Integer.toString(issueDate.getPingLun()));//评论的个数
                 time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));//时间
@@ -208,6 +210,7 @@ public class IssueDetails extends BaseActivity {
                                     Log.d("test","点赞成功");
                                     issueDate.setZanStatus(1);
                                     issueDate.setZan(issueDate.getZan()+1);
+                                    addData();
                                 }
                             });
                         }else {
@@ -225,6 +228,7 @@ public class IssueDetails extends BaseActivity {
                                     Log.d("test","取消赞成功");
                                     issueDate.setZanStatus(0);
                                     issueDate.setZan(issueDate.getZan()-1);
+                                    addData();
                                 }
                             });
                         }

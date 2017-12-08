@@ -241,7 +241,9 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
             });
 
 
-            holder.price.setText("￥"+issueDate.getPrice());//价格
+            if (!issueDate.getPrice().equals("")){
+                holder.price.setText("￥"+issueDate.getPrice());//价格
+            }
             holder.zan_num.setText(Integer.toString(issueDate.getZan()));//赞的个数
             holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));//评论的个数
             holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));//时间

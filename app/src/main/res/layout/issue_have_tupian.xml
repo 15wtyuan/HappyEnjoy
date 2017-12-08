@@ -65,7 +65,7 @@
             android:id="@+id/price"
             android:layout_below="@+id/kind_name"
             android:layout_alignRight="@+id/kind_name"
-            android:text="$0"
+            android:text=""
             android:textSize="12.67sp"
             android:textColor="#FC911F"/>
 
