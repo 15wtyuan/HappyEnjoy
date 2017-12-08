@@ -1,5 +1,6 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.issueDetails.IssueDetails;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.UserData;
 import com.example.bill.happyenjoy.networkTools.HttpUtil;
@@ -35,10 +37,10 @@ import okhttp3.Response;
 
 public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
 
-    private static final int TYPE_HAVETUPIAN = 1;
-    private static final int TYPE_NORMAL = 2;
-    private static final int TYPE_SEARCH_BUTTON =3;
-    private static final int TYPE_SELECT = 4;
+    public static final int TYPE_HAVETUPIAN = 1;
+    public static final int TYPE_NORMAL = 2;
+    public static final int TYPE_SEARCH_BUTTON =3;
+    public static final int TYPE_SELECT = 4;
 
     private List<IssueDate> issueDates = new ArrayList<>();
     private HomePageActivity activity;
@@ -177,7 +179,8 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         }
         return viewHolder;
     }
-    public static String TimeStamp2Date(String timestampString, String formats) {//将Unix时间截转换成能看懂的字符串
+
+    private static String TimeStamp2Date(String timestampString, String formats) {//将Unix时间截转换成能看懂的字符串
         if (TextUtils.isEmpty(formats))
             formats = "yyyy-MM-dd HH:mm:ss";
         Long timestamp = Long.parseLong(timestampString) * 1000;
@@ -191,8 +194,53 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
         final UserData userData = userDatas.get(position);
 
         if (holder instanceof TupianViewHolder||holder instanceof NormalViewHolder){
+
             holder.biaoti.setText(issueDate.getTitle());//标题
+            final ViewHolder tempHolder = holder;
+            holder.biaoti.setOnClickListener(new View.OnClickListener() {//点击标题可以跳转到issue详情页面
+                @Override
+                public void onClick(View view) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(activity, IssueDetails.class);
+                            intent.putExtra("id",Integer.toString(issueDate.getId()));
+                            intent.putExtra("useId",Integer.toString(userData.getUid()));
+                            if (tempHolder instanceof TupianViewHolder){
+                                intent.putExtra("type",Integer.toString(TYPE_HAVETUPIAN));
+                            }
+                            if (tempHolder instanceof NormalViewHolder){
+                                intent.putExtra("type",Integer.toString(TYPE_NORMAL));
+                            }
+                            activity.startActivity(intent);
+                        }
+                    });
+                }
+            });
+
             holder.neirong.setText(issueDate.getBrief());//内容
+            holder.neirong.setOnClickListener(new View.OnClickListener() {//点击内容可以跳转到issue详情页面
+                @Override
+                public void onClick(View view) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(activity, IssueDetails.class);
+                            intent.putExtra("id",Integer.toString(issueDate.getId()));
+                            intent.putExtra("useId",Integer.toString(userData.getUid()));
+                            if (tempHolder instanceof TupianViewHolder){
+                                intent.putExtra("type",Integer.toString(TYPE_HAVETUPIAN));
+                            }
+                            if (tempHolder instanceof NormalViewHolder){
+                                intent.putExtra("type",Integer.toString(TYPE_NORMAL));
+                            }
+                            activity.startActivity(intent);
+                        }
+                    });
+                }
+            });
+
+
             holder.price.setText("￥"+issueDate.getPrice());//价格
             holder.zan_num.setText(Integer.toString(issueDate.getZan()));//赞的个数
             holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));//评论的个数

@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.ActivityCollector;
@@ -69,6 +71,8 @@ public class HomePageActivity extends BaseActivity {
 
     private IssueAdapter issueAdapter;
     private RecyclerView issueList;
+    private TextView loading;
+    private TextView cuowu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class HomePageActivity extends BaseActivity {
         getDeviceDensity();
         initBoomMenuButton();//悬浮按钮 添加 的初始化
 
+        loading = (TextView)findViewById(R.id.loading);//用来显示“正在加载的tv”
+        cuowu = (TextView)findViewById(R.id.cuowu);//用来显示网络错误的提示
         issueList = (RecyclerView)findViewById(R.id.issueList);//消息列表
         LinearLayoutManager layoutManagerIssue = new LinearLayoutManager(this);
         issueAdapter = new IssueAdapter(issueDates,userDatas,this);
@@ -97,7 +103,6 @@ public class HomePageActivity extends BaseActivity {
             }
         });
 
-
         springView = (SpringView) findViewById(R.id.springview);//上拉下拉刷新
         springView.setType(SpringView.Type.FOLLOW);
         springView.setListener(new SpringView.OnFreshListener() {
@@ -109,11 +114,11 @@ public class HomePageActivity extends BaseActivity {
                         springView.onFinishFreshAndLoad();
                         initIssueDate();
                     }
-                }, 1000);
+                }, 500);
             }
 
             @Override
-            public void onLoadmore() {//下拉加载更多
+            public void onLoadmore() {//上拉加载更多
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -146,6 +151,7 @@ public class HomePageActivity extends BaseActivity {
 
     public void initIssueDate(){
         issueDates.clear();//清空所有消息
+        userDatas.clear();
         List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
         UserData userData = new UserData();
         for (UserData temp:userDatastemp){
@@ -159,6 +165,9 @@ public class HomePageActivity extends BaseActivity {
         UserData search_button2 = new UserData();//第一个被设置为搜索按钮
         search_button2.setUid(-10086);
         userDatas.add(0,search_button2);
+        issueAdapter.notifyDataSetChanged();
+        loading.setVisibility(View.VISIBLE);
+        cuowu.setVisibility(View.INVISIBLE);
         addIssueDate();//添加10条信息
     }
 
@@ -200,7 +209,9 @@ public class HomePageActivity extends BaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showToase("链接失败");
+                loading.setVisibility(View.INVISIBLE);
+                cuowu.setVisibility(View.VISIBLE);
+                //showToase("链接失败");
             }
         });
     }
@@ -218,6 +229,8 @@ public class HomePageActivity extends BaseActivity {
             @Override
             public void run() {
                 issueAdapter.notifyDataSetChanged();//更新issue的RecyclerView
+                loading.setVisibility(View.INVISIBLE);
+                cuowu.setVisibility(View.INVISIBLE);
             }
         });
     }
