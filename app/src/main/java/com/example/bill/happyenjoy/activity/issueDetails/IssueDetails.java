@@ -2,6 +2,8 @@ package com.example.bill.happyenjoy.activity.issueDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +22,9 @@ import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.homePage.ImageAdapter;
 import com.example.bill.happyenjoy.activity.homePage.IssueAdapter;
+import com.example.bill.happyenjoy.model.BaseJson;
+import com.example.bill.happyenjoy.model.CommentariesData;
+import com.example.bill.happyenjoy.model.CommentariesJson;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.IssueDetailsJson;
 import com.example.bill.happyenjoy.model.UserData;
@@ -26,6 +33,8 @@ import com.example.bill.happyenjoy.networkTools.HttpUtil;
 import com.example.bill.happyenjoy.view.ToolBarHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +48,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class IssueDetails extends BaseActivity {
+
+    public static final int UPDATA = 1;
+    public static final int ADD_USERDATA = 2;
+    public static final int ADD_ISSUEDATA = 3;
 
     private String issueId = null;
     private String typeString = null;
@@ -61,6 +74,28 @@ public class IssueDetails extends BaseActivity {
     private RecyclerView tupian;
     private IssueDetails activity;
 
+    private List<CommentariesData> commentariesDataList = new ArrayList<>();
+    private CommentariesAdapter commentariesAdapter;
+    private RecyclerView commentaries;
+
+    private ImageButton send;
+    private EditText add_pinlun;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case UPDATA:
+                    break;
+                case ADD_ISSUEDATA:
+                    break;
+                case ADD_USERDATA:
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +114,7 @@ public class IssueDetails extends BaseActivity {
             tupian = findViewById(R.id.tupian);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);//标题栏
         ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
         toolbarHelper.setTitle("发布详情");
         toolbar = toolbarHelper.getToolbar();
@@ -97,10 +132,100 @@ public class IssueDetails extends BaseActivity {
         zan = (ImageView)findViewById(R.id.zan);
         price = (TextView)findViewById(R.id.price);
 
-        initIssueDate();
+        send = (ImageButton)findViewById(R.id.send);//发送评论
+        add_pinlun = (EditText)findViewById(R.id.add_pinlun);
+//        add_pinlun.setFocusable(true);//下面和这行三行代码是设置自动弹出软键盘
+//        add_pinlun.setFocusableInTouchMode(true);
+//        add_pinlun.requestFocus();//获取焦点 光标出现
+        send.setOnClickListener(new View.OnClickListener() {//发送按钮的监听
+            @Override
+            public void onClick(View view) {
+                String pinlunData = add_pinlun.getText().toString();
+                if (pinlunData!=null){
+                    addcommentaries(pinlunData);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            add_pinlun.setText("");
+                        }
+                    });
+                }
+            }
+        });
+        initcommentariesData();
+        commentaries = (RecyclerView) findViewById(R.id.pinlunIssue);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        commentariesAdapter = new CommentariesAdapter(commentariesDataList,this);
+        commentaries.setLayoutManager(layoutManager);
+        commentaries.setAdapter(commentariesAdapter);
+        initIssueDate_user();//从网络获取资料，这部分主要是获取用户的信息
     }
 
-    private void initIssueDate(){//从网络获取资料，这部分主要是获取用户的信息
+    private void addcommentaries(String pinlunData){
+
+        List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+        UserData homeuserData = new UserData();
+        for (UserData temp:userDatastemp){
+            homeuserData = temp;
+        }
+        RequestBody requestBody = new FormBody.Builder()
+                .add("user1_id",Integer.toString(homeuserData.getUid()))
+                .add("user2_id",Integer.toString(userData.getUid()))
+                .add("issue_id",Integer.toString(issueDate.getId()))
+                .add("context",pinlunData)
+                .build();
+        HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Comments/newComments",requestBody,new okhttp3.Callback(){
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                BaseJson baseJson = gson.fromJson(responseData, BaseJson.class);//使用Gson处理获取的json
+                if(baseJson.getMessage().equals("success")){
+                    Log.d("test","评论成功");
+                    initcommentariesData();
+                }
+            }
+            @Override
+            public void onFailure(Call call, IOException e) {
+                showToase("评论失败");
+            }
+        });
+    }
+
+    private void initcommentariesData(){
+        if (issueId!=null){
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("issue_id",issueId)
+                    .build();
+            HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/comments/getComments",requestBody,new okhttp3.Callback(){
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseData = response.body().string();
+                    Gson gson = new GsonBuilder().serializeNulls().create();
+                    CommentariesJson commentariesJson = gson.fromJson(responseData, CommentariesJson.class);//使用Gson处理获取的json
+                    if(commentariesJson.getMessage().equals("success")){
+                        commentariesDataList.clear();
+                        commentariesDataList.addAll(commentariesJson.getData());
+                        if (commentariesDataList != null){
+                            Log.d("test","读取评论成功");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    commentariesAdapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    linkFailure();
+                }
+            });
+        }
+    }
+
+    private void initIssueDate_user(){//从网络获取资料，这部分主要是获取用户的信息
         if (userId !=null){
             RequestBody requestBody = new FormBody.Builder()
                     .add("id",userId)
@@ -117,7 +242,7 @@ public class IssueDetails extends BaseActivity {
                             Log.d("test","读取用户成功");
                         }
                     }
-                    initIssueDate2();//从网络获取资料2，这部分主要是获取issue的信息
+                    initIssueDate_details();//从网络获取资料2，这部分主要是获取issue的信息
                 }
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -127,7 +252,7 @@ public class IssueDetails extends BaseActivity {
         }
     }
 
-    private void initIssueDate2(){//从网络获取资料，分两部分是因为合在一起有点乱
+    private void initIssueDate_details(){//从网络获取资料，分两部分是因为合在一起有点乱
         if (issueId != null){
             RequestBody requestBody = new FormBody.Builder()
                     .add("id",issueId)
@@ -141,13 +266,13 @@ public class IssueDetails extends BaseActivity {
                     if (issueDetailsJson.getMessage().equals("success")){
                         issueDate = issueDetailsJson.getData();
                         if (issueDate != null){
-                            Log.d("test","读取成功");
+                            Log.d("test","读取详情成功");
                         }
                     }
                     if (issueDate != null){
                         addData();//更新ui
                     }else {
-                        Log.d("test","失败");
+                        Log.d("test","读取详情失败");
                     }
                 }
                 @Override
@@ -196,8 +321,13 @@ public class IssueDetails extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         if (issueDate.getZanStatus()==0){
+                            List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+                            UserData homeuserData = new UserData();
+                            for (UserData temp:userDatastemp){
+                                homeuserData = temp;
+                            }
                             RequestBody requestBody = new FormBody.Builder()
-                                    .add("user_id",Integer.toString(userData.getUid()))
+                                    .add("user_id",Integer.toString(homeuserData.getUid()))
                                     .add("issue_id",Integer.toString(issueDate.getId()))
                                     .build();
                             HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/newZan",requestBody,new okhttp3.Callback(){
@@ -214,8 +344,13 @@ public class IssueDetails extends BaseActivity {
                                 }
                             });
                         }else {
+                            List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+                            UserData homeuserData = new UserData();
+                            for (UserData temp:userDatastemp){
+                                homeuserData = temp;
+                            }
                             RequestBody requestBody = new FormBody.Builder()
-                                    .add("user_id",Integer.toString(userData.getUid()))
+                                    .add("user_id",Integer.toString(homeuserData.getUid()))
                                     .add("issue_id",Integer.toString(issueDate.getId()))
                                     .build();
                             HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/deleteZan",requestBody,new okhttp3.Callback(){

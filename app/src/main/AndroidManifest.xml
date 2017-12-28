@@ -47,7 +47,9 @@
         <activity android:name=".Register.ChooseCollegeActivity" />
         <activity android:name=".Register.ChooseSexActivity" />
         <activity android:name=".activity.publish.IdleEditActivity" />
-        <activity android:name=".activity.issueDetails.IssueDetails"></activity>
+        <activity
+            android:name=".activity.issueDetails.IssueDetails"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

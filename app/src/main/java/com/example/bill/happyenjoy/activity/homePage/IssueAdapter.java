@@ -20,6 +20,8 @@ import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.UserData;
 import com.example.bill.happyenjoy.networkTools.HttpUtil;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,19 +248,25 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
             }
             holder.zan_num.setText(Integer.toString(issueDate.getZan()));//赞的个数
             holder.pinlun_num.setText(Integer.toString(issueDate.getPingLun()));//评论的个数
-            holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm:ss"));//时间
+            holder.time.setText(TimeStamp2Date(issueDate.getIssueTime(),"yyyy-MM-dd HH:mm"));//时间
 
             if (issueDate.getZanStatus()==0){//是否已经点赞，设置点赞的图标
                 holder.zan.setImageResource(R.mipmap.zan_no);
             }else {
                 holder.zan.setImageResource(R.mipmap.zan_yes);
             }
+
             holder.zan.setOnClickListener(new View.OnClickListener() {//点赞功能的监听
                 @Override
                 public void onClick(View view) {
                     if (issueDate.getZanStatus()==0){
+                        List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+                        UserData homeuserData = new UserData();
+                        for (UserData temp:userDatastemp){
+                            homeuserData = temp;
+                        }
                         RequestBody requestBody = new FormBody.Builder()
-                                .add("user_id",Integer.toString(userData.getUid()))
+                                .add("user_id",Integer.toString(homeuserData.getUid()))
                                 .add("issue_id",Integer.toString(issueDate.getId()))
                                 .build();
                         HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/newZan",requestBody,new okhttp3.Callback(){
@@ -280,8 +288,13 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.ViewHolder>{
                             }
                         });
                     }else {
+                        List<UserData> userDatastemp = DataSupport.findAll(UserData.class);//获取用户数据，在这里用来获取用户id
+                        UserData homeuserData = new UserData();
+                        for (UserData temp:userDatastemp){
+                            homeuserData = temp;
+                        }
                         RequestBody requestBody = new FormBody.Builder()
-                                .add("user_id",Integer.toString(userData.getUid()))
+                                .add("user_id",Integer.toString(homeuserData.getUid()))
                                 .add("issue_id",Integer.toString(issueDate.getId()))
                                 .build();
                         HttpUtil.sendOkHttpRequest("http://139.199.202.23/School/public/index.php/index/Issue/deleteZan",requestBody,new okhttp3.Callback(){

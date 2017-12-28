@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="36.67dp"
+        android:layout_height="36.67dp"
+        android:id="@+id/commentaries_touxiang"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="11.33dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/commentaries_touxiang"
+        android:layout_toEndOf="@+id/commentaries_touxiang"
+        android:text="测试五个字"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textColor="#212121"/>
+
+    <TextView
+        android:id="@+id/neirong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/commentaries_touxiang"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5.33dp"
+        android:layout_marginBottom="5.33dp"
+        android:layout_marginRight="10dp"
+        android:text="这里是内容，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字，因为是测试用，所以很长很长有很多个字"
+        android:textSize="12.67sp"
+        android:textColor="#757575"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="刚刚"
+        android:textSize="12.67sp"
+        android:textColor="#757575"/>
+
+</RelativeLayout>
