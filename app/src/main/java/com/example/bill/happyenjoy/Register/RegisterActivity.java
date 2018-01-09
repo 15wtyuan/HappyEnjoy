@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -90,7 +91,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 phoneNumber = phoneNumber_edit.getText().toString();
-                Toast.makeText(getApplicationContext(),"你点了发送验证码"+phoneNumber,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"你点了发送验证码"+phoneNumber,Toast.LENGTH_SHORT).show();
                 post_phoneNumber_http();
 
             }
@@ -209,7 +210,7 @@ public class RegisterActivity extends BaseActivity {
                   // Log.d("信息",registerResponseJson.getMessage()+"   "+registerResponseJson.getCode());
                    RegisterResponseData data = registerResponseJson.getData();//将返回的ia信息储存在其中
                    user_id = data.getId();//这里得到的是int
-                   //Log.d("信息",String.valueOf(data.getId()));//这里将user_id转化为String
+                   Log.d("信息",String.valueOf(data.getId()));//这里将user_id转化为String
                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                    Intent intent = new Intent(RegisterActivity.this,ChooseSexActivity.class);
 

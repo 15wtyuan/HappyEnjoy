@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="18.67dp"
             android:paddingTop="11.33dp"
-            android:text="闲置类别"
+            android:text="生活类别"
             android:textColor="#212121"
             android:textSize="14dp" />
 
@@ -211,7 +211,7 @@
             android:layout_below="@+id/line3"
             android:layout_marginTop="11.33dp"
             android:paddingLeft="18.67dp"
-            android:text="出售价格"
+            android:text="服务价格"
             android:textColor="#212121"
             android:textSize="14dp" />
 
@@ -229,11 +229,11 @@
 
 
     </RelativeLayout>
-    
-    
+
+
     <Button
 
-        android:id="@+id/edit_ensure_button"
+        android:id="@+id/life_ensure_button"
         android:layout_width="320dp"
         android:layout_height="36.67dp"
         android:background="@drawable/green_button"

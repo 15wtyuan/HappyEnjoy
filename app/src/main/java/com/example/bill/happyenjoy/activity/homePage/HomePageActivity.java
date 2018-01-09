@@ -22,6 +22,7 @@ import com.example.bill.happyenjoy.activity.ActivityCollector;
 import com.example.bill.happyenjoy.activity.BaseActivity;
 import com.example.bill.happyenjoy.activity.login.MainActivity;
 import com.example.bill.happyenjoy.activity.publish.IdleEditActivity;
+import com.example.bill.happyenjoy.activity.publish.LifeEditActivity;
 import com.example.bill.happyenjoy.model.IssueDate;
 import com.example.bill.happyenjoy.model.IssueDateJson;
 import com.example.bill.happyenjoy.model.UserData;
@@ -271,6 +272,8 @@ public class HomePageActivity extends BaseActivity {
                                    startActivity(intent);
                                    break;
                                 case 1:
+                                    Intent intent1 = new Intent(HomePageActivity.this, LifeEditActivity.class);
+                                    startActivity(intent1);
                                     break;
                                 case 2:
                                     break;
