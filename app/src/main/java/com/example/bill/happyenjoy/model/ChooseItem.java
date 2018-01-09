@@ -4,7 +4,7 @@ package com.example.bill.happyenjoy.model;
  * Created by bill on 2017/11/26.
  */
 
-public class Commodity {
+public class ChooseItem {
     private int icon;
     private String name;
 
