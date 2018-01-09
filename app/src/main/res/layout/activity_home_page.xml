@@ -13,6 +13,24 @@
             android:id="@+id/green_toolbar_homepage"
             layout="@layout/green_toolbar_homepage"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="正在加载。。。"
+            android:id="@+id/loading"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="网络错误"
+            android:id="@+id/cuowu"
+            android:visibility="invisible"/>
+
         <com.liaoinstan.springview.widget.SpringView
             android:id="@+id/springview"
             android:layout_width="match_parent"

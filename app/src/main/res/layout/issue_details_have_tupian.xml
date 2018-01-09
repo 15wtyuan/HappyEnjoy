@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/white_toolbar"
+        android:id="@+id/white_toolbar"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/details"
+        android:layout_below="@+id/white_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        app:cardElevation="1dp"
+        app:cardCornerRadius="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="36.67dp"
+                android:layout_height="36.67dp"
+                android:id="@+id/touxiang"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_name"
+                android:text=""
+                android:textSize="12.67sp"
+                android:textColor="#212121"
+                android:layout_marginTop="15.67dp"
+                android:layout_marginStart="56.67dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time"
+                android:text=""
+                android:textSize="9.33sp"
+                android:textColor="#757575"
+                android:layout_marginTop="33.67dp"
+                android:layout_marginStart="56.67dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kind_name"
+                android:layout_marginTop="23.67dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:textSize="9.33sp"
+                android:textColor="#757575"/>
+
+            <ImageView
+                android:id="@+id/kind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/kind_name"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/kind_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price"
+                android:layout_below="@+id/kind_name"
+                android:layout_alignRight="@+id/kind_name"
+                android:text=""
+                android:textSize="12.67sp"
+                android:textColor="#FC911F"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/biaoti"
+                android:layout_alignLeft="@+id/touxiang"
+                android:layout_marginTop="56.67dp"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:textSize="14sp"
+                android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/neirong"
+                android:layout_alignLeft="@+id/touxiang"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/biaoti"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="12.67sp"
+                android:textColor="#757575"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pinlun_num"
+                android:layout_below="@+id/tupian"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="0"
+                android:textSize="9.33sp"
+                android:textColor="#757575"/>
+
+            <ImageView
+                android:id="@+id/pinlun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/pinlun_num"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/pinlun_num"
+                android:background="@mipmap/pinlun" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/zan_num"
+                android:layout_alignTop="@+id/pinlun"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@+id/pinlun"
+                android:text="0"
+                android:textSize="9.33sp"
+                android:textColor="#757575"/>
+
+            <ImageView
+                android:id="@+id/zan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/zan_num"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/zan_num"
+                android:background="@mipmap/zan_no" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="93.33dp"
+                android:layout_alignLeft="@+id/touxiang"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/neirong"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tupian"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pinlunIssue"
+        android:layout_below="@id/details"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD">
+
+            <EditText
+                android:id="@+id/add_pinlun"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/send_bt"
+                android:background="@null"/>
+
+            <RelativeLayout
+                android:id="@+id/send_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp">
+
+                <ImageButton
+                    android:id="@+id/send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/send_pinlun" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="发送"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

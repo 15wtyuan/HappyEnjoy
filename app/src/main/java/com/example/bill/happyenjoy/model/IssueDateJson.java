@@ -5,7 +5,7 @@ package com.example.bill.happyenjoy.model;
  */
 
 public class IssueDateJson extends BaseJson {
-    IssueDateList data;
+    private IssueDateList data;
 
     public IssueDateList getData() {
         return data;

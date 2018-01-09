@@ -43,11 +43,10 @@
             android:name=".activity.homePage.HomePageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".Register.ChooseCollegeActivity" />
-        <activity android:name=".Register.ChooseSexActivity" />
-        <activity android:name=".activity.publish.IdleEditActivity" />
-        <activity android:name=".activity.publish.LifeEditActivity"></activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
+        <activity android:name=".Register.ChooseCollegeActivity"></activity>
+        <activity android:name=".Register.ChooseSexActivity"></activity>
+        <activity android:name=".activity.publish.IdleEditActivity"></activity>
     </application>
 
 </manifest>
