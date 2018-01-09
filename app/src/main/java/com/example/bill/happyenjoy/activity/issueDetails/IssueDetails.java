@@ -2,8 +2,6 @@ package com.example.bill.happyenjoy.activity.issueDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -74,6 +73,8 @@ public class IssueDetails extends BaseActivity {
     private RecyclerView tupian;
     private IssueDetails activity;
 
+    private ProgressBar progressBar;
+
     private List<CommentariesData> commentariesDataList = new ArrayList<>();
     private CommentariesAdapter commentariesAdapter;
     private RecyclerView commentaries;
@@ -81,21 +82,6 @@ public class IssueDetails extends BaseActivity {
     private ImageButton send;
     private EditText add_pinlun;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case UPDATA:
-                    break;
-                case ADD_ISSUEDATA:
-                    break;
-                case ADD_USERDATA:
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +118,8 @@ public class IssueDetails extends BaseActivity {
         zan = (ImageView)findViewById(R.id.zan);
         price = (TextView)findViewById(R.id.price);
 
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+
         send = (ImageButton)findViewById(R.id.send);//发送评论
         add_pinlun = (EditText)findViewById(R.id.add_pinlun);
 //        add_pinlun.setFocusable(true);//下面和这行三行代码是设置自动弹出软键盘
@@ -141,7 +129,7 @@ public class IssueDetails extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String pinlunData = add_pinlun.getText().toString();
-                if (pinlunData!=null){
+                if (!pinlunData.equals("")){
                     addcommentaries(pinlunData);
                     runOnUiThread(new Runnable() {
                         @Override
@@ -304,6 +292,7 @@ public class IssueDetails extends BaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                progressBar.setVisibility(View.GONE);
                 biaoti.setText(issueDate.getTitle());//标题
                 neirong.setText(issueDate.getBrief());//内容
                 if (!issueDate.getPrice().equals("")){

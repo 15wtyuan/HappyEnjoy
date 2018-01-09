@@ -8,6 +8,12 @@
         layout="@layout/white_toolbar"
         android:id="@+id/white_toolbar"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/details"
         android:layout_below="@+id/white_toolbar"
@@ -159,42 +165,52 @@
         android:scrollbars="none"
         android:layout_alignParentBottom="true">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            app:cardElevation="1dp"
+            app:cardCornerRadius="0dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:id="@+id/send_bt">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:id="@+id/send"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/send_pinlun" />
-
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="发送"
-                    android:textColor="@color/white"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/send_bt">
+
+                    <ImageButton
+                        android:id="@+id/send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/send_pinlun" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="发送"
+                        android:textColor="@color/white"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/add_pinlun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/send_bt"
+                    android:background="@null"/>
+
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/add_pinlun"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@+id/send_bt"
-                android:background="@null"/>
-
-        </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
     </ScrollView>
 
