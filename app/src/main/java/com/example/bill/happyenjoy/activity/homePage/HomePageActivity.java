@@ -57,7 +57,7 @@ public class HomePageActivity extends BaseActivity {
 
 
     private DrawerLayout mDrawerLayout;
-    private Toolbar toolbar;
+    private Toolbar toolbar;//
     private SearchDialog searchDialog;
     private Boolean isSearch = false;
     private BoomMenuButton bmb;
