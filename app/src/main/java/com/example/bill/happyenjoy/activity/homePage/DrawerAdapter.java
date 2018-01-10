@@ -1,6 +1,5 @@
 package com.example.bill.happyenjoy.activity.homePage;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.bill.happyenjoy.R;
 import com.example.bill.happyenjoy.activity.BaseActivity;
-import com.example.bill.happyenjoy.activity.publish.IdleEditActivity;
 import com.example.bill.happyenjoy.model.UserData;
 
 import org.litepal.crud.DataSupport;
@@ -119,8 +117,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(activity,IdleEditActivity.class);
-                            activity.startActivity(intent);
+                            activity.showToase("我的");
                         }
                     });
                 }

@@ -1,32 +1,25 @@
 package com.example.bill.happyenjoy.activity.publish;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View;
-
-import com.example.bill.happyenjoy.R;
-import com.example.bill.happyenjoy.activity.BaseActivity;
-import com.example.bill.happyenjoy.model.ChooseItem;
-import com.example.bill.happyenjoy.model.UserData;
-import com.example.bill.happyenjoy.view.ToolBarHelper;
-
-import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.support.v7.app.AlertDialog;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -38,6 +31,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bill.happyenjoy.R;
+import com.example.bill.happyenjoy.activity.BaseActivity;
+import com.example.bill.happyenjoy.model.ChooseItem;
+import com.example.bill.happyenjoy.model.UserData;
+import com.example.bill.happyenjoy.view.ToolBarHelper;
+
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
@@ -48,7 +47,6 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -91,13 +89,6 @@ public class IdleEditActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-/*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
-        ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
-        toolbarHelper.setTitle("闲置");
-        toolbar = toolbarHelper.getToolbar();
-        setSupportActionBar(toolbar);
-        */
 
         //从本地存储获取到userId
         List<UserData> userDatas = DataSupport.findAll(UserData.class);
@@ -112,6 +103,12 @@ public class IdleEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idle_edit_layout);
         spinner = (Spinner) findViewById(R.id.spinner);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.white_toolbar);
+        ToolBarHelper toolbarHelper = new ToolBarHelper(toolbar);
+        toolbarHelper.setTitle("闲置发布");
+        toolbar = toolbarHelper.getToolbar();
+        setSupportActionBar(toolbar);
 
         List<ChooseItem> list = new ArrayList<>();
 
@@ -256,6 +253,23 @@ public class IdleEditActivity extends BaseActivity {
                 // showToase(title);
             }
         });
+    }
+
+    //设置组件的点击属性
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm = getSupportFragmentManager();
+                if (fm != null && fm.getBackStackEntryCount() > 0) {
+                    fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                } else {
+                    finish();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

@@ -352,9 +352,7 @@ public class HomePageActivity extends BaseActivity {
         public void itemClick(DrawerAdapter.DrawerItemNormal drawerItemNormal) {
             switch (drawerItemNormal.name) {
                 case "我的发布":
-                    Intent intent2 = new Intent(HomePageActivity.this,IdleEditActivity.class);
-                    startActivity(intent2);
-
+                    showToase("我的发布");
                     break;
                 case "我的消息":
                     showToase("我的消息");

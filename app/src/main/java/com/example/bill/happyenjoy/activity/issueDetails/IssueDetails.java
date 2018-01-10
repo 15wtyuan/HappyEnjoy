@@ -120,8 +120,8 @@ public class IssueDetails extends BaseActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
 
-        send = (ImageButton)findViewById(R.id.send);//发送评论
-        add_pinlun = (EditText)findViewById(R.id.add_pinlun);
+        send = (ImageButton)findViewById(R.id.send);//发送评论按钮
+        add_pinlun = (EditText)findViewById(R.id.add_pinlun);//发送评论的输入框
 //        add_pinlun.setFocusable(true);//下面和这行三行代码是设置自动弹出软键盘
 //        add_pinlun.setFocusableInTouchMode(true);
 //        add_pinlun.requestFocus();//获取焦点 光标出现
